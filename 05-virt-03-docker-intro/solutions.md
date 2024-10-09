@@ -130,4 +130,6 @@ https://hub.docker.com/repository/docker/kirskirill/custom-nginx/general
     rm ./compose.yaml
     docker compose down --remove-orphans
 
+При удалении compose-файла у существующего стека система предупреждает, что существуют контейнеры, которые остались без описания их работы, поэтому их нужно удалять с ключом `--remove-orphans`, чтобы убрать контейнеры, для которых больше нет описания.
+
 ![](./images/5.10.png)
