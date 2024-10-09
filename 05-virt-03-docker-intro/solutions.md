@@ -81,20 +81,25 @@ https://hub.docker.com/repository/docker/kirskirill/custom-nginx/general
     docker compose up -d
 
 `compose.yaml`
+
 ![compose.yaml](./images/5.1.png)
 
 `docker-compose.yaml`
+
 ![docker-compose](./images/5.2.png)
 
 При запуске `docker compose up -d` при существовании нескольких файлов будет выбран `compose.yaml` как предпочтительный.
+
 ![docker_compose.png](./images/docker_compose.png)
 
 Следует быть внимательным, потому что при использовании устаревшей команды `docker-compose up -d` будет выбран `docker-compose.yaml`.
+
 ![docker-compose.png](./images/docker-compose.png)
 
 ### Пункт 2
 
 `compose.yaml` included `docker-compose.yaml`.
+
 ![docker-compose_included](./images/5.3.png)
 
 ![](./images/5.4.png)
@@ -111,10 +116,13 @@ https://hub.docker.com/repository/docker/kirskirill/custom-nginx/general
 ![](./images/5.6.png)
 
 ### Пункт 5
+
 ![](./images/5.7.png)
 
 ### Пункт 6
+
 ![](./images/5.8.png)
+
 ![](./images/5.9.png)
 
 ### Пункт 7
