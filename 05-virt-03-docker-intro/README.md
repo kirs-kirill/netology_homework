@@ -92,7 +92,7 @@ https://hub.docker.com/repository/docker/kirskirill/custom-nginx/general
 
 ![docker_compose.png](./images/docker_compose.png)
 
-Следует быть внимательным, потому что при использовании устаревшей команды `docker-compose up -d` будет выбран `docker-compose.yaml`.
+Следует быть внимательным, потому что при использовании команды `docker-compose up -d` будет выбран `docker-compose.yaml`.
 
 ![docker-compose.png](./images/docker-compose.png)
 
