@@ -9,5 +9,5 @@
 
 ## Задача 1
 
-https://github.com/kirs-kirill/shvirtd-example-python
+<https://github.com/kirs-kirill/shvirtd-example-python>
 
