@@ -43,18 +43,6 @@
 
 ## Задача 2
 
-1. Создайте в yandex cloud container registry с именем "test" с помощью "yc tool" .
-
-![python ./main.py](./images/5.png)
-
-2. Настройте аутентификацию вашего локального docker в yandex container registry.
-
-3. Соберите и залейте в него образ с python приложением из задания №1.
-
-![python ./main.py](./images/7.png)
-
-4. Просканируйте образ на уязвимости.
-
 ![python ./main.py](./images/8.png)
 
 Отчет об уязвимостях.
