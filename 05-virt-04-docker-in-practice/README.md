@@ -9,8 +9,9 @@
 
 ## Задача 1
 
-<https://github.com/kirs-kirill/shvirtd-example-python>
+1. <https://github.com/kirs-kirill/shvirtd-example-python>
 
+2. 
 Содержимое `Dockerfile.python`:
 
     FROM python:3.9-slim
@@ -30,3 +31,13 @@
 Содержимое `.dockerignore`
 
 ![dockerignore](./images/1.png)
+
+Образ нормально собирается:
+
+![docker build](./images/2.png)
+
+![docker images](./images/3.png)
+
+3. Запуск `python ./main.py` в venv
+
+![python ./main.py](./images/4.png)
