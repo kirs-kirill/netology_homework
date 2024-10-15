@@ -25,7 +25,7 @@
     ENV DB_NAME=example
     
     CMD ["sh", "-c", "sleep 5 && python main.py"]
-    # слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
+    ###### слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
 
 Содержимое `.dockerignore`
 
@@ -43,9 +43,20 @@
 
 ## Задача 2
 
+![python ./main.py](./images/5.png)
+
+![python ./main.py](./images/6.png)
+
+![python ./main.py](./images/7.png)
+
+![python ./main.py](./images/8.png)
+
+Отчет об уязвимостях.
+
+[Ссылка на CSV-таблицу](https://github.com/kirs-kirill/netology_homework/blob/49f5ec56267e28ba5f42ae62c1fed1401cdacf3c/05-virt-04-docker-in-practice/vulnerabilities.csv)
 
 <details>
-  <summary>Отчет об аязвимостях</summary>
+  <summary>Отчет об уязвимостях</summary>
   
   ### Дата сканирования: 15.10.2024, в 15:49 МСК
   | name                | link                                                            | severity | package            | version               | fixedBy |
