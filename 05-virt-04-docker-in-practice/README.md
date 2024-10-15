@@ -12,7 +12,7 @@
 1. <https://github.com/kirs-kirill/shvirtd-example-python>
 
 2. Содержимое `Dockerfile.python`:
-
+```dockerfile
     FROM python:3.9-slim
     
     WORKDIR /app
@@ -26,6 +26,7 @@
     
     CMD ["sh", "-c", "sleep 5 && python main.py"]
     ###### слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
+```
 
 Содержимое `.dockerignore`
 
