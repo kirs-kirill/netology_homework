@@ -11,8 +11,7 @@
 
 1. <https://github.com/kirs-kirill/shvirtd-example-python>
 
-2. 
-Содержимое `Dockerfile.python`:
+2. Содержимое `Dockerfile.python`:
 
     FROM python:3.9-slim
     
