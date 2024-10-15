@@ -43,7 +43,7 @@
 
 ## Задача 2
 
-![python ./main.py](./images/8.png)
+![yc registry](./images/5.png)
 
 Отчет об уязвимостях.
 
