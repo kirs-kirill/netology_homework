@@ -19,10 +19,10 @@
     COPY . .
     RUN pip install --no-cache-dir -r requirements.txt && rm requirements.txt
     
-    ENV DB_HOST=127.0.0.1
-    ENV DB_USER=app
-    ENV DB_PASSWORD=very_strong
-    ENV DB_NAME=example
+    ENV DB_HOST=$(DB_HOST)
+    ENV DB_USER=$(DB_USER)
+    ENV DB_PASSWORD=$(DB_PASSWORD)
+    ENV DB_NAME=$(DB_NAME)
     
     CMD ["sh", "-c", "sleep 5 && python main.py"]
     ###### слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
