@@ -166,7 +166,50 @@
 ![sql requests](./images/6.png)
 
 <details>
-  <summary>Содержимое `compose.yaml`</summary>
-  ```compose
+  <summary>Содержимое <code>compose.yaml</code></summary>
+
+```compose
+
+  #version: "3" #будет удалено в новых весиях docker
+
+  name: task3
+  
+  include:
+    - proxy.yaml
+  
+  services:
+
+    http_back:
+      build:
+        context: .
+        dockerfile: Dockerfile.python
+        args:
+            - MYSQL_USER=$MYSQL_USER
+            - MYSQL_PASSWORD=$MYSQL_PASSWORD
+            - MYSQL_DATABASE=$MYSQL_DATABASE
+      networks:
+        backend:
+          ipv4_address: 172.20.0.5
+      ports:
+        - "5000:5000"
+      environment:
+        - DB_HOST=db
+      env_file:
+        - path: ./.env
+      depends_on:
+        - db
+      restart: on-failure
+
+    db:
+      image: mysql:8
+      networks:
+        backend:
+          ipv4_address: 172.20.0.10
+      restart: always
+      environment:
+        - DB_HOST=db
+      env_file:
+        - path: ./.env
+    
   ```
 </details>
