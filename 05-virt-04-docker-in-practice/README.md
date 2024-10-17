@@ -173,7 +173,7 @@
   #version: "3" #будет удалено в новых весиях docker
 
   name: task3
-  
+
   include:
     - proxy.yaml
   
@@ -211,5 +211,22 @@
       env_file:
         - path: ./.env
     
+  ```
+</details>
+
+## Задача 4
+
+<details>
+  <summary>Содержимое <code>script.sh</code></summary>
+
+```shell
+
+  #!/bin/bash
+
+  cd /opt
+  git clone https://github.com/kirs-kirill/shvirtd-example-python.git
+  cd /opt/shvirtd-example-python
+  docker compose up -d
+
   ```
 </details>
