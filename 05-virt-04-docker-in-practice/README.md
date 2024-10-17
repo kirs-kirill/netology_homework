@@ -13,19 +13,24 @@
 
 2. Содержимое `Dockerfile.python`:
 ```dockerfile
-    FROM python:3.9-slim
+  FROM python:3.9-slim
     
-    WORKDIR /app
-    COPY . .
-    RUN pip install --no-cache-dir -r requirements.txt && rm requirements.txt
-    
-    ENV DB_HOST=$(DB_HOST)
-    ENV DB_USER=$(DB_USER)
-    ENV DB_PASSWORD=$(DB_PASSWORD)
-    ENV DB_NAME=$(DB_NAME)
-    
-    CMD ["sh", "-c", "sleep 5 && python main.py"]
-    ###### слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
+  WORKDIR /app
+  COPY . .
+  RUN pip install --no-cache-dir -r requirements.txt && rm requirements.txt
+
+  ENV DB_HOST=$(DB_HOST)
+
+  ARG MYSQL_USER
+  ARG MYSQL_PASSWORD
+  ARG MYSQL_DATABASE
+
+  ENV DB_USER=$MYSQL_USER
+  ENV DB_PASSWORD=$MYSQL_PASSWORD
+  ENV DB_NAME=$MYSQL_DATABASE
+
+  CMD ["sh", "-c", "env | grep DB_ && sleep 5 && python main.py"]
+  ###### слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
 ```
 
 Содержимое `.dockerignore`
@@ -154,4 +159,14 @@
   | CVE-2022-0563       | https://avd.aquasec.com/nvd/cve-2022-0563                       | LOW      | util-linux         | 2.38.1-5+deb12u1      |         |
   | CVE-2022-0563       | https://avd.aquasec.com/nvd/cve-2022-0563                       | LOW      | util-linux-extra   | 2.38.1-5+deb12u1      |         |
 
+</details>
+
+## Задача 3
+
+![sql requests](./images/6.png)
+
+<details>
+  <summary>Содержимое `compose.yaml`</summary>
+  ```compose
+  ```
 </details>
