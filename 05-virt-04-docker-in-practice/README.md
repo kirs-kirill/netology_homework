@@ -11,6 +11,9 @@
 
 1. <https://github.com/kirs-kirill/shvirtd-example-python>
 
+<<<<<<< HEAD
+2. 
+=======
 2. Содержимое `Dockerfile.python`:
 ```dockerfile
   FROM python:3.9-slim
@@ -245,4 +248,8 @@ docker compose up -d
 
 Затем сохраняем образ в tar-архив, распаковываем его и по ID слоя находим нужные нам данные
 
-![dive](./images/11.png)
+![tar](./images/11.png)
+
+### Задача 6.1
+
+![docker cp](./images/12.png)
