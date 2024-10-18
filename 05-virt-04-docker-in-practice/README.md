@@ -29,7 +29,7 @@
   ENV DB_PASSWORD=$MYSQL_PASSWORD
   ENV DB_NAME=$MYSQL_DATABASE
 
-  CMD ["sh", "-c", "env | grep DB_ && sleep 5 && python main.py"]
+  CMD ["sh", "-c", "sleep 5 && python main.py"]
   ###### слип нужен т.к. почему-то скрипт не ждет пока бд полностью откроется
 ```
 
