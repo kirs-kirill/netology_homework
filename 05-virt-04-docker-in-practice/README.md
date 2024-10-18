@@ -11,9 +11,7 @@
 
 1. <https://github.com/kirs-kirill/shvirtd-example-python>
 
-<<<<<<< HEAD
-2. 
-=======
+
 2. Содержимое `Dockerfile.python`:
 ```dockerfile
   FROM python:3.9-slim
@@ -252,4 +250,4 @@ docker compose up -d
 
 ### Задача 6.1
 
-![docker cp](./images/12.png)
+![docker cp](./images/1.png)
