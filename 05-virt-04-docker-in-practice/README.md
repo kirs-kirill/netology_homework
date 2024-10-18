@@ -250,4 +250,4 @@ docker compose up -d
 
 ### Задача 6.1
 
-![docker cp](./images/1.png)
+![docker cp](./images/12.png)
