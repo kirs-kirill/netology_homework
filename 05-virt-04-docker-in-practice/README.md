@@ -216,8 +216,7 @@
 
 ## Задача 4
 
-<details>
-  <summary>Содержимое <code>script.sh</code></summary>
+Содержимое `script.sh`
 
 ```shell
 #!/bin/bash
@@ -227,4 +226,11 @@ git clone https://github.com/kirs-kirill/shvirtd-example-python.git
 cd /opt/shvirtd-example-python
 docker compose up -d
 ```
-</details>
+
+Запросы к БД проекта на VM
+
+![yc vm](./images/7.png)
+
+Ссылка на форк репозитория
+
+  <https://github.com/kirs-kirill/shvirtd-example-python>
