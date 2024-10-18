@@ -234,3 +234,17 @@ docker compose up -d
 Ссылка на форк репозитория
 
   <https://github.com/kirs-kirill/shvirtd-example-python>
+
+## Задача 6
+
+Сначала с помощью `dive` узнаем ID нужного нам слоя образа.
+
+![dive_run](./images/8.png)
+
+![dive](./images/9.png)
+
+Затем сохраняем образ в tar-архив, распаковываем его и по ID слоя находим нужные нам данные
+
+![dive](./images/10.png)
+
+![dive](./images/11.png)
