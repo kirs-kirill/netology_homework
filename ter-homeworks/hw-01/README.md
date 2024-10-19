@@ -75,7 +75,7 @@
 
 8. `A:` Объясните, почему при этом не был удалён docker-образ **nginx:latest**. Ответ **ОБЯЗАТЕЛЬНО НАЙДИТЕ В ПРЕДОСТАВЛЕННОМ КОДЕ**, а затем **ОБЯЗАТЕЛЬНО ПОДКРЕПИТЕ** строчкой из документации [**terraform провайдера docker**](https://docs.comcloud.xyz/providers/kreuzwerker/docker/latest/docs).  (ищите в классификаторе resource docker_image )
 
-    `Q:` В разделе `resource "docker_image" "nginx"` указан параметр `keep_locally = true`, в этом случае dpcker-образ сохраняется после уничтожения ресурса.
+    `Q:` В разделе `resource "docker_image" "nginx"` указан параметр `keep_locally = true`, в этом случае docker-образ сохраняется после уничтожения ресурса.
 
     [Из документации](https://docs.comcloud.xyz/providers/kreuzwerker/docker/latest/docs/resources/image#keep_locally):
 
