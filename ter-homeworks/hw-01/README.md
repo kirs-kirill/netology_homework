@@ -142,3 +142,4 @@
 
 При исользовании `opentofu` пришлось закомментировать `terraform.required_version`.
 
+![tofu init](./images/5.png)
