@@ -81,3 +81,65 @@
 
       * ```keep_locally``` (Boolean) If true, then the Docker image won't be deleted on destroy operation.If this is false, it will delete the image from the docker local storage on destroy operation.
 
+
+## Задание 2
+
+Ссылка на файл [`main.tf`](main.tf)
+
+<details>
+  <summary>Содержимое файла <code>main.tf</code></summary>
+
+    terraform {
+      required_providers {
+        docker = {
+          source  = "kreuzwerker/docker"
+          version = "~> 3.0.1"
+        }
+      }
+      required_version = "~>1.8.4" /*Многострочный комментарий.
+     Требуемая версия terraform */
+    }
+    
+    resource "random_password" "random_string" {
+      length      = 16
+      special     = false
+      min_upper   = 1
+      min_lower   = 1
+      min_numeric = 1
+    }
+    
+    
+    provider "docker" {
+      host     = "ssh://username@hostname:22"
+      ssh_opts = ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null"]
+    }
+    
+    resource "docker_image" "mysql"{
+      name         = "mysql:8"
+      keep_locally = false
+    }
+    
+    resource "docker_container" "mysql" {
+      image = docker_image.mysql.image_id
+      name  = "mysql-container"
+      env = ["MYSQL_ROOT_PASSWORD=${random_password.random_string.result}",
+        "MYSQL_DATABASE=wordpress",
+        "MYSQL_USER=wordpress",
+        "MYSQL_PASSWORD=${random_password.random_string.result}",
+        "MYSQL_ROOT_HOST=%"]
+    
+      ports {
+        internal = 3306
+        external = 3306
+      }
+    }
+
+</details>
+
+![docker exec](./images/4.png)
+
+## Задание 3
+
+При исользовании `opentofu` пришлось закомментировать `terraform.required_version`.
+
+![tofu init](./images/5.png)
