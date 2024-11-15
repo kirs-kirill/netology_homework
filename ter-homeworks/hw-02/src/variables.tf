@@ -4,11 +4,13 @@
 variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
+  sensitive = true
 }
 
 variable "folder_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
+  sensitive = true
 }
 
 variable "default_zone" {
@@ -21,7 +23,6 @@ variable "default_cidr" {
   default     = ["10.0.1.0/24"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
-
 variable "vpc_name" {
   type        = string
   default     = "develop"
@@ -29,10 +30,37 @@ variable "vpc_name" {
 }
 
 
+###custom vars
+
+variable "vm_web_family" {
+  type        = string
+  description = "Using image"
+  default     = "ubuntu-2004-lts"
+}
+
+variable "vm_web_name" {
+  type        = string
+  description = "Name of VM"
+  default     = "netology-develop-platform-web"
+}
+
+variable "vm_web_platform_id" {
+  type        = string
+  description = "https://yandex.cloud/en/docs/compute/concepts/performance-levels"
+  default     = "standard-v3"
+}
+
+variable "vm_web_resources" {
+  type        = map(number)
+  default     = {cores = 2, memory = 1, core_fraction = 20}
+  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+}
+
+
 ###ssh vars
 
 variable "vms_ssh_root_key" {
   type        = string
-  default     = "<your_ssh_ed25519_key>"
+  default     = ""
   description = "ssh-keygen -t ed25519"
 }
