@@ -30,3 +30,42 @@
 ![outputs](./images/7.png)
 
 ## Задание 5
+
+![outputs](./images/8.png)
+
+![outputs](./images/9.png)
+
+![outputs](./images/10.png)
+
+## Задание 6
+
+ 1. 
+ ![](./images/11.png)
+ ![](./images/12.png)
+
+ 2. 
+
+ ![](./images/14.png)
+ ![](./images/15.png)
+ ![](./images/16.png)
+ ![](./images/13.png)
+
+## Задание 7*
+
+1. ```
+    > local.test_list[1]
+    "staging"
+    ```
+2.  ```
+    > length(local.test_list)
+    3
+    ```
+3.  ```
+    > local.test_map["admin"]
+    "John"
+    ```
+4. ```
+    > "${local.test_map["admin"]} is ${keys(local.test_map)[0]} for ${local.test_list[2]} server based on OS ${local.servers.production.image} with ${local.servers.production.cpu} v${keys(local.servers.production)[0]},${local.servers.production.ram} ${keys(local.servers.production)[3]} and ${length(local.servers.production.disks)} virtual ${keys(local.servers.production)[1]}"
+    
+    "John is admin for production server based on OS ubuntu-20-04 with 10 vcpu,40 ram and 4 virtual disks"
+    ```

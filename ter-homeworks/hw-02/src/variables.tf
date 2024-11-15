@@ -5,12 +5,14 @@ variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
   sensitive = true
+  default = "b1gtntehc8q3dldpb1ka"
 }
 
 variable "folder_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
   sensitive = true
+  default = "b1g65ggbv0fmdj4bp782"
 }
 
 variable "default_zone" {
@@ -38,22 +40,33 @@ variable "vm_web_family" {
   default     = "ubuntu-2004-lts"
 }
 
-variable "vm_web_name" {
-  type        = string
-  description = "Name of VM"
-  default     = "netology-develop-platform-web"
-}
-
 variable "vm_web_platform_id" {
   type        = string
   description = "https://yandex.cloud/en/docs/compute/concepts/performance-levels"
   default     = "standard-v3"
 }
 
-variable "vm_web_resources" {
-  type        = map(number)
-  default     = {cores = 2, memory = 1, core_fraction = 20}
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+variable "vm_resources" {
+  type        = map(map(string))
+  default     = {
+    web = {cores = 2, memory = 1, core_fraction = 20},
+    db = {cores = 2, memory = 2, core_fraction = 20}
+    }
+  description = "https://yandex.cloud/ru/docs/compute/concepts/performance-levels"
+}
+
+variable "vm_metadata"{
+  type = map(object({
+    serial-port-enable = number, 
+    ssh-keys = string
+    }))
+  default = {
+    metadata = {
+    serial-port-enable = 1
+    ssh-keys = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICQcwD9uWc42cYFGApx4kNUVGyZaGvbipy02takxkXNI usem@MacBook-Pro-usem.local"
+    }
+  }
+
 }
 
 
@@ -61,6 +74,6 @@ variable "vm_web_resources" {
 
 variable "vms_ssh_root_key" {
   type        = string
-  default     = ""
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICQcwD9uWc42cYFGApx4kNUVGyZaGvbipy02takxkXNI usem@MacBook-Pro-usem.local"
   description = "ssh-keygen -t ed25519"
 }
