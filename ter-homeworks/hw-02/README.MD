@@ -19,13 +19,13 @@
 
 ## Задание 3
 
-Тут в качестве решения, наверное, должа быть ссылка на файл [[src/vms_platform.tf]]
+Тут в качестве решения, наверное, должа быть [ссылка на файл vms_platform.tf](./src/vms_platform.tf)
 
 ![terraform apply](./images/6.png)
 
 ## Задание 4
 
-Ссылка на [outputs.tf]
+[Ссылка на outputs.tf](./src/outputs.tf)
 
 ![outputs](./images/7.png)
 
