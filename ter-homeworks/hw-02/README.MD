@@ -25,7 +25,7 @@
 
 ## Задание 4
 
-Ссылка на [[outputs.tf]]
+Ссылка на [outputs.tf]
 
 ![outputs](./images/7.png)
 
