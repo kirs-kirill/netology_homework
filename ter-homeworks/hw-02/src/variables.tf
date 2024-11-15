@@ -5,14 +5,12 @@ variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
   sensitive = true
-  default = "b1gtntehc8q3dldpb1ka"
 }
 
 variable "folder_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
   sensitive = true
-  default = "b1g65ggbv0fmdj4bp782"
 }
 
 variable "default_zone" {
