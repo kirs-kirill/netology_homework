@@ -7,11 +7,13 @@
 Правила групп безопасности создаются корректно.
 ![security_groups](./images/1.png)
 
+[!NOTE]
 В терминале эти правила можно просмотреть командами
 ```
 yc vpc security-group list
 yc vpc security-group get --name <name>
 ```
+
 <details>
     <summary>Пример</summary>
 
