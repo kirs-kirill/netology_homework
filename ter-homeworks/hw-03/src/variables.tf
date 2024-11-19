@@ -34,46 +34,54 @@ variable "vpc_name" {
 
 ### Custom variables
 
-variable "family" {
-  type        = string
-  description = "OS image family"
-  default     = "ubuntu-2004-lts"
-}
-
-variable "platform_id" {
-  type        = string
-  description = "https://yandex.cloud/en/docs/compute/concepts/performance-levels"
-  default     = "standard-v3"
-}
-
-variable "vm_name" {
-  type        = string
-  description = "Name template of VMs"
-  default     = "web"
-}
-
-variable "vm_resources" {
-  type = map(number)
+variable "task2_1" {
+  type        = map(string)
+  description = "VM config variables"
   default = {
-    cores = 2, memory = 1, core_fraction = 20
+    family             = "ubuntu-2004-lts"
+    platform_id        = "standard-v3"
+    vm_name            = "web"
+    cores              = 2
+    memory             = 1
+    core_fraction      = 20
+    login              = "ubuntu"
+    serial-port-enable = true
+    preemptible        = true
+    hostname           = "hw-03"
+    count_vms          = 2
   }
-  description = "https://yandex.cloud/ru/docs/compute/concepts/performance-levels"
 }
 
-variable "login" {
-  type        = string
-  description = "username for login to VMs"
-  default     = "ubuntu"
-  sensitive   = true
+variable "family" {
+  type    = string
+  default = "ubuntu-2004-lts"
 }
-
-variable "serial-port-enable" {
-  type = bool
-  default = true
-}
-
-variable "count_vms" {
-  type = number
-  default = 2
-  description = "count of wms"
+variable "task2_2" {
+  type = list(object({
+    name          = string,
+    cpu           = number,
+    ram           = number,
+    disk_volume   = number, # из описания задания не совсем понятно что имеется в виду под disk_volume, поэтому переменная указыват размер диска
+    core_fraction = number,
+    platform_id   = string,
+    description   = string
+  }))
+  default = [{
+    name          = "main"
+    cpu           = 2
+    ram           = 1
+    disk_volume   = 8
+    core_fraction = 20
+    platform_id   = "standard-v3"
+    description = "task2_2"
+    }, {
+    name          = "replica"
+    cpu           = 2
+    ram           = 1
+    disk_volume   = 9
+    core_fraction = 20
+    platform_id   = "standard-v3"
+    description = "task2_2"
+    }
+  ]
 }

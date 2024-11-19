@@ -1,15 +1,18 @@
 data "yandex_compute_image" "ubuntu" {
-  family = var.family   #образ системы
+  family = var.task2_1.family #образ системы
 }
-resource "yandex_compute_instance" "vms" {
-  count = var.count_vms # кол-во создаваемых ВМ
-  name        = "${var.vm_name}-${count.index+1}" #имя ВМ
-  platform_id = var.platform_id # используемый процессор
-  description = "hw-03-${count.index+1}"
+
+resource "yandex_compute_instance" "count_vms" {
+  depends_on = [ yandex_compute_instance.foreach ]
+  count       = var.task2_1.count_vms
+  name        = "${var.task2_1.vm_name}-${count.index + 1}" #имя ВМ
+  platform_id = var.task2_1.platform_id                     # используемый процессор
+  description = "${var.task2_1.hostname}-${count.index + 1}"
+  hostname    = "${var.task2_1.hostname}-${count.index + 1}"
   resources {
-    cores         = var.vm_resources.cores          # кол-во ядер
-    memory        = var.vm_resources.memory         # кол-во памяти
-    core_fraction = var.vm_resources.core_fraction  # использование процессора в %
+    cores         = var.task2_1.cores         # кол-во ядер
+    memory        = var.task2_1.memory        # кол-во памяти
+    core_fraction = var.task2_1.core_fraction # использование процессора в %
   }
   boot_disk {
     initialize_params {
@@ -17,16 +20,16 @@ resource "yandex_compute_instance" "vms" {
     }
   }
   scheduling_policy {
-    preemptible = true  # Прерываемая машина
+    preemptible = var.task2_1.preemptible # Прерываемая машина
   }
   network_interface {
-    subnet_id = "${yandex_vpc_subnet.develop.id}" # используемая сеть, определяется в main.tf
+    subnet_id = yandex_vpc_subnet.develop.id # используемая сеть, определяется в main.tf
     nat       = true
   }
 
   metadata = {
-    serial-port-enable = var.serial-port-enable
-    ssh-keys           = "${var.login}:${local.ssh-key}" #ssh-keygen -t ed25519
+    serial-port-enable = var.task2_1.serial-port-enable
+    ssh-keys           = "${var.task2_1.login}:${local.ssh-key}"
   }
 
 }
