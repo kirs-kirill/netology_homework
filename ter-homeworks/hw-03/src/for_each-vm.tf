@@ -2,9 +2,9 @@ data "yandex_compute_image" "foreach" {
   family = var.family #образ системы
 }
 
-resource "yandex_compute_instance" "foreach" {
+resource "yandex_compute_instance" "foreach_vms" {
   for_each    = {for k, v in var.task2_2_vms : k => v}
-  name        = each.value.name   #имя ВМ
+  name     = each.value.name   #имя ВМ
   platform_id = each.value.platform_id # используемый процессор
   description = each.value.description
   hostname    = each.value.name
