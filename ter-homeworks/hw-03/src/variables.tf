@@ -56,16 +56,18 @@ variable "family" {
   type    = string
   default = "ubuntu-2004-lts"
 }
-variable "task2_2" {
-  type = list(object({
-    name          = string,
-    cpu           = number,
-    ram           = number,
-    disk_volume   = number, # из описания задания не совсем понятно что имеется в виду под disk_volume, поэтому переменная указыват размер диска
-    core_fraction = number,
-    platform_id   = string,
-    description   = string
-  }))
+variable "task2_2_vms" {
+  type = list(object(
+    {
+      name          = string,
+      cpu           = number,
+      ram           = number,
+      disk_volume   = number, # из описания задания не совсем понятно что имеется в виду под disk_volume, поэтому переменная указыват размер диска
+      core_fraction = number,
+      platform_id   = string,
+      description   = string
+    }
+  ))
   default = [{
     name          = "main"
     cpu           = 2
@@ -73,7 +75,7 @@ variable "task2_2" {
     disk_volume   = 8
     core_fraction = 20
     platform_id   = "standard-v3"
-    description = "task2_2"
+    description   = "task2_2"
     }, {
     name          = "replica"
     cpu           = 2
@@ -81,7 +83,33 @@ variable "task2_2" {
     disk_volume   = 9
     core_fraction = 20
     platform_id   = "standard-v3"
-    description = "task2_2"
+    description   = "task2_2"
     }
   ]
+}
+
+variable "task3_disk" {
+  type = map(string)
+  default = {
+    name        = "hw3"
+    type        = "network-hdd"
+    size        = 1
+    environment = "task3"
+  }
+}
+variable "task3_vm" {
+  type        = map(string)
+  description = "VM config variables"
+  default = {
+    family             = "ubuntu-2004-lts"
+    platform_id        = "standard-v3"
+    vm_name            = "storage"
+    cores              = 2
+    memory             = 1
+    core_fraction      = 20
+    login              = "ubuntu"
+    serial-port-enable = true
+    preemptible        = true
+    hostname           = "storage"
+  }
 }
