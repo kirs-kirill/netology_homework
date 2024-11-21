@@ -2,10 +2,10 @@ data "yandex_compute_image" "ubuntu" {
   family = var.task2_1.family #образ системы
 }
 
-resource "yandex_compute_instance" "count_vms" {
-  depends_on = [ yandex_compute_instance.foreach ]
+resource "yandex_compute_instance" "web" {
+  depends_on = [ yandex_compute_instance.foreach_vms ]
   count       = var.task2_1.count_vms
-  name        = "${var.task2_1.vm_name}-${count.index + 1}" #имя ВМ
+  name     = "${var.task2_1.vm_name}-${count.index + 1}" #имя ВМ
   platform_id = var.task2_1.platform_id                     # используемый процессор
   description = "${var.task2_1.hostname}-${count.index + 1}"
   hostname    = "${var.task2_1.hostname}-${count.index + 1}"

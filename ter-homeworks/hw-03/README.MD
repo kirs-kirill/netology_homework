@@ -105,3 +105,8 @@
 
 ## Задание 4
 
+<img src="./images/5.png" width=500>
+
+## Задание 5*
+
+<img src="./images/6.png" width=500>
