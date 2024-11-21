@@ -107,6 +107,8 @@
 
 <img src="./images/5.png" width=500>
 
+[Ссылка на коммит](https://github.com/kirs-kirill/netology_homework/commit/47c4178143a92da789aa7bc701f5193efd713a68)
+
 ## Задание 5*
 
 <img src="./images/6.png" width=500>
