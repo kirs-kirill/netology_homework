@@ -69,13 +69,13 @@ docker run -id --name ubuntu ubuntu
 
 Запросило пароль и успешно выполнилось
 
-<img src="./images/8.png" width=300>
+<img src="./images/8.png" width=50%>
 
 9. Посмотрите при помощи `ansible-doc` список плагинов для подключения. Выберите подходящий для работы на `control node`.
 
 `ansible-doc -t connection -l`
 
-<img src="./images/9.png" width=300>
+<img src="./images/9.png" width=50%>
 
 10. В `prod.yml` добавьте новую группу хостов с именем  `local`, в ней разместите localhost с необходимым типом подключения.
 
@@ -100,7 +100,7 @@ cat ./inventory/prod.yml
 
 `ansible-playbook ./site.yml -i ./inventory/prod.yml -J`
 
-<img src="./images/10.png" width=300>
+<img src="./images/10.png" width=50%>
 
 12. Заполните `README.md` ответами на вопросы. Сделайте `git push` в ветку `master`. В ответе отправьте ссылку на ваш открытый репозиторий с изменённым `playbook` и заполненным `README.md`.
 
