@@ -58,9 +58,9 @@ docker run -id --name ubuntu ubuntu
 
 `ansible-vault encrypt ./group_vars/deb/examp.yml` и `ansible-vault encrypt ./group_vars/el/examp.yml` 
 
-<img src="./images/6.png" width=300>
+<img src="./images/6.png" width=50%>
 
-<img src="./images/7.png" width=300>
+<img src="./images/7.png" width=50%>
 Успешно зашифровалось
 
 8. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь в работоспособности.
