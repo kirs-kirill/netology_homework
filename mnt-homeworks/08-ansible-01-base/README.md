@@ -14,17 +14,17 @@
 
 2. Найдите файл с переменными (group_vars), в котором задаётся найденное в первом пункте значение, и поменяйте его на `all default fact`.
 
-    <img src="./images/2.png" width=100%>
+    <img src="./images/2.png" width=50%>
 
     При изменении значения переменной в `group_vars/all/examp.yml` меняется и вывод команды.
 
 3. Воспользуйтесь подготовленным (используется `docker`) или создайте собственное окружение для проведения дальнейших испытаний.
 
-    Вместо centos буду использовать alpine.
+    Буду использовать готовое.
 
     ```
-    docker run -id --name alpine alpine
-    docker run -id --name ubuntu ubuntu
+    docker run --name centos7 -id pycontribs/centos:7
+    docker run --name ubuntu -id pycontribs/ubuntu
     ```
 
     <img src="./images/3.png" width=300>
@@ -66,7 +66,7 @@
 
 8. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь в работоспособности.
 
-    `ansible-playbook ./site.yml -i ./inventory/prod.yml -J`
+    `ansible-playbook ./site.yml -i ./inventory/prod.yml --ask-vault-pass`
 
     Запросило пароль и успешно выполнилось
 
@@ -85,21 +85,21 @@
     ---
       el:
         hosts:
-          alpine:
+          centos7:
             ansible_connection: docker
       deb:
         hosts:
           ubuntu:
             ansible_connection: docker
       local:
-        hosts:
-          localhost:
-            ansible_connection: local
+            hosts:
+              localhost:
+                ansible_connection: local
     ```
 
 11. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь, что факты `some_fact` для каждого из хостов определены из верных `group_vars`.
 
-    `ansible-playbook ./site.yml -i ./inventory/prod.yml -J`
+    `ansible-playbook ./site.yml -i ./inventory/prod.yml --ask-vault-pass`
 
     <img src="./images/10.png" width=50%>
 
@@ -107,3 +107,37 @@
 
 13. Предоставьте скриншоты результатов запуска команд.
 
+
+### Необязательная часть
+
+1. При помощи `ansible-vault` расшифруйте все зашифрованные файлы с переменными.
+
+    <img src="./images/11.png" width=50%>
+
+2. Зашифруйте отдельное значение `PaSSw0rd` для переменной `some_fact` паролем `netology`. Добавьте полученное значение в `group_vars/all/exmp.yml`.
+
+    <img src="./images/12.png" width=50%>
+
+    <img src="./images/13.png" width=50%>
+
+3. Запустите `playbook`, убедитесь, что для нужных хостов применился новый `fact`.
+
+    <img src="./images/14.png" width=50%>
+
+4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот вариант](https://hub.docker.com/r/pycontribs/fedora).
+
+    При использовании рекомендованного образа ansible выдавал ошибку, в образе нет необходимого файла `/usr/bin/python`, только `/usr/bin/python3`.
+
+    Используется образ [`lansible/fedora`](https://hub.docker.com/r/lansible/fedora)
+
+    <img src="./images/15.png" width=50%>
+
+    <img src="./images/16.png" width=50%>
+  
+5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
+
+    [`script.sh`](./playbook/script.sh)
+
+    <img src="./images/17.png" width=50%>
+
+6. Все изменения должны быть зафиксированы и отправлены в ваш личный репозиторий.
