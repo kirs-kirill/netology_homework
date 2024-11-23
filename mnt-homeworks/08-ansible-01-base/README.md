@@ -6,7 +6,7 @@
 
 1. Попробуйте запустить playbook на окружении из `test.yml`, зафиксируйте значение, которое имеет факт `some_fact` для указанного хоста при выполнении playbook.
 
-    <img src="./images/1.png" width=500>
+    <img src="./images/1.png" width=80%>
 
     `ansible-playbook ./site.yml -i ./inventory/test.yml` запускается без ошибок.
 
@@ -27,13 +27,13 @@
     docker run --name ubuntu -id pycontribs/ubuntu
     ```
 
-    <img src="./images/3.png" width=300>
+    <img src="./images/3.png" width=80%>
 
 4. Проведите запуск playbook на окружении из `prod.yml`. Зафиксируйте полученные значения `some_fact` для каждого из `managed host`.
 
     `ansible-playbook ./site.yml -i ./inventory/prod.yml`
 
-    <img src="./images/4.png" width=300>
+    <img src="./images/4.png" width=80%>
 
 5. Добавьте факты в `group_vars` каждой из групп хостов так, чтобы для `some_fact` получились значения: для `deb` — `deb default fact`, для `el` — `el default fact`.
 
@@ -52,7 +52,7 @@
 
     `ansible-playbook ./site.yml -i ./inventory/prod.yml`
 
-    <img src="./images/5.png" width=300>
+    <img src="./images/5.png" width=80%>
 
 7. При помощи `ansible-vault` зашифруйте факты в `group_vars/deb` и `group_vars/el` с паролем `netology`.
 
