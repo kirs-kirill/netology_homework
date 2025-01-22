@@ -2,4 +2,3 @@
 vector_version: "latest"
 vector_packages:
   - vector
-vector_data_dir: ""

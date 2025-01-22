@@ -71,7 +71,7 @@
         # Download and install vector packages
         deb: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
 
-    - name: Vector | Replace vector config
+    - name: Vector | Upload vector config
       # Render and upload vector simple config for work with clickhouse
       become: true
       ansible.builtin.template:
@@ -110,16 +110,16 @@
         repo: 'https://github.com/VKCOM/lighthouse.git'
         dest: /home/{{ ansible_user }}/lighthouse
         version: master
-    - name: Lighthouse | Copy config
+    - name: Lighthouse | Upload config
       become: true
       ansible.builtin.template:
         src: ./templates/nginx.j2
         dest: /etc/nginx/sites-enabled/default
         mode: "0766"
         owner: "{{ ansible_user }}"
-      notify: Lighthouse | Restart nginx
+      notify: Lighthouse | Start nginx
   handlers:
-    - name: Lighthouse | Restart nginx
+    - name: Lighthouse | Start nginx
       become: true
       ansible.builtin.service:
         name: nginx
