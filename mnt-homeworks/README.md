@@ -5,3 +5,4 @@
 1. [Введение в Ansible](./08-ansible-01-base/).
 2. [Работа с Playbook](./08-ansible-02-playbook/).
 3. [Использование Ansible](./08-ansible-03-yandex/).
+4. [Работа с roles](./08-ansible-04-role/).
