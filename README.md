@@ -17,5 +17,5 @@
     3. [Использование Ansible](./mnt-homeworks/08-ansible-03-yandex/)
     4. [Работа с roles]()
 
-```{include}./mnt-homeworks/08-ansible-04-role/README.md
+```{include} ./mnt-homeworks/08-ansible-04-role/README.md
 ```
