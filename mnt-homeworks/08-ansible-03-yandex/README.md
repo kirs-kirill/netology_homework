@@ -1,5 +1,7 @@
 # Домашнее задание к занятию 3 «Использование Ansible»
 
+[Ссылка на задание](https://github.com/netology-code/mnt-homeworks/tree/MNT-video/08-ansible-03-yandex)
+
 Данный плейбук предназначен для установки `Clickhouse`, `Vector` и `Lighthouse` на хосты, указанные в `inventory` файле.
 
 ## group_vars

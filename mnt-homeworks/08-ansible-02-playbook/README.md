@@ -1,5 +1,7 @@
 # Домашнее задание к занятию 2 «Работа с Playbook»
 
+[Ссылка на задание](https://github.com/netology-code/mnt-homeworks/tree/MNT-video/08-ansible-02-playbook)
+
 ## Подготовка к выполнению
 
 1. * Необязательно. Изучите, что такое [ClickHouse](https://www.youtube.com/watch?v=fjTNS2zkeBs) и [Vector](https://www.youtube.com/watch?v=CgEhyffisLY).
