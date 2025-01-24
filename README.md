@@ -16,3 +16,6 @@
     2. [Работа с Playbook](./mnt-homeworks/08-ansible-02-playbook/)
     3. [Использование Ansible](./mnt-homeworks/08-ansible-03-yandex/)
     4. [Работа с roles]()
+
+```{include}./mnt-homeworks/08-ansible-04-role/README.md
+```
