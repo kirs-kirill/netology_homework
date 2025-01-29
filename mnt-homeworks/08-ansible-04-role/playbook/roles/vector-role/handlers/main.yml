@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for vector-role
+- name: Vector | Restart vector service
+  # Restart vector service
+  become: true
+  ansible.builtin.service:
+    name: vector
+    state: restarted

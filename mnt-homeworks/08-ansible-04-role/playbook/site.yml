@@ -1,0 +1,126 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  pre_tasks:
+    - name: Clickhouse | Install prerequisites for Ansible to install .deb via apt module
+      # install packages for install .deb
+      become: true
+      ansible.builtin.apt:
+        name:
+          - xz-utils
+
+  handlers:
+    - name: Clickhouse | Create db
+      # Create db, clickhouse-service may start quickly, need retries and delays
+      ansible.builtin.command: "clickhouse-client -q 'CREATE DATABASE IF NOT EXISTS logs;'"
+      register: create_db
+      retries: 5
+      delay: 5
+      failed_when: create_db.rc != 0 and create_db.rc != 82
+      changed_when: create_db.rc == 0
+      listen: Clickhouse | Start clickhouse service
+      notify: Clickhouse | create table
+
+    - name: Clickhouse | create table
+      # Create table in DB
+      ansible.builtin.command: "clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.access_logs (message String) ENGINE = MergeTree() ORDER BY tuple()'"
+      register: create_table
+      changed_when: create_table.rc == 0
+
+  tasks:
+    - name: Clickhouse | Install clickhouse packages
+      # Download and install clickhouse packages
+      become: true
+      ansible.builtin.apt:
+        deb: "https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_amd64.deb"
+      with_items: "{{ clickhouse_packages }}"
+
+    - name: Clickhouse | Copy config
+      # Copy config to server
+      become: true
+      ansible.builtin.template:
+        unsafe_writes: true
+        src: ./templates/clickhouse.xml
+        dest: /etc/clickhouse-server/config.xml
+        mode: "0766"
+        owner: "{{ ansible_user }}"
+
+    - name: Clickhouse | Start clickhouse service
+      # Restart service and create DB
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: started
+      notify:
+        - Clickhouse | Create db
+        - Clickhouse | create table
+
+- name: Install vector
+  hosts: vector
+  pre_tasks:
+    - name: Vector | Install prerequisites for Ansible to install .deb via apt module
+      # install packages for install .deb
+      become: true
+      ansible.builtin.apt:
+        name:
+          - xz-utils
+  tasks:
+    - name: Vector | Install vector packages
+      become: true
+      ansible.builtin.apt:
+        # Download and install vector packages
+        deb: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
+
+    - name: Vector | Upload vector config
+      # Render and upload vector simple config for work with clickhouse
+      become: true
+      ansible.builtin.template:
+        src: ./templates/vector.j2
+        dest: /etc/vector/vector.yaml
+        mode: "0444"
+        owner: "{{ ansible_user }}"
+      notify:
+        - Vector | Restart vector service
+
+  handlers:
+    - name: Vector | Restart vector service
+      # Restart vector service
+      become: true
+      ansible.builtin.service:
+        name: vector
+        state: restarted
+
+- name: Install Lighthouse
+  hosts: lighthouse
+  pre_tasks:
+    - name: Lighthouse | Install git
+      become: true
+      ansible.builtin.apt:
+        name: git
+    - name: Lighthouse | install nginx
+      become: true
+      ansible.builtin.apt:
+        name:
+          - nginx
+  tasks:
+    - name: Lighthouse | Download lighthouse
+      # Download and install lighthouse
+      become: true
+      ansible.builtin.git:
+        repo: 'https://github.com/VKCOM/lighthouse.git'
+        dest: /home/{{ ansible_user }}/lighthouse
+        version: master
+    - name: Lighthouse | Upload config
+      become: true
+      ansible.builtin.template:
+        src: ./templates/nginx.j2
+        dest: /etc/nginx/sites-enabled/default
+        mode: "0766"
+        owner: "{{ ansible_user }}"
+      notify: Lighthouse | Start nginx
+  handlers:
+    - name: Lighthouse | Start nginx
+      become: true
+      ansible.builtin.service:
+        name: nginx
+        state: restarted

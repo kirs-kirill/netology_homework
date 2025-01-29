@@ -1,0 +1,16 @@
+---
+lighthouse:
+  hosts:
+    lighthouse-1:
+      ansible_host: <host_ip>
+      ansible_user: <host_user>
+clickhouse:
+  hosts:
+    clickhouse-1:
+      ansible_host: <host_ip>
+      ansible_user: <host_user>
+vector:
+  hosts:
+    vector-1:
+      ansible_host: <host_ip>
+      ansible_user: <host_user>

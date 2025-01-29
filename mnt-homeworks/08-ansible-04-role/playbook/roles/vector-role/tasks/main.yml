@@ -1,0 +1,28 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for vector-role
+hosts: vector
+pre_tasks:
+  - name: Vector | Install prerequisites for Ansible to install .deb via apt module
+    # install packages for install .deb
+    become: true
+    ansible.builtin.apt:
+      name:
+        - xz-utils
+tasks:
+  - name: Vector | Install vector packages
+    become: true
+    ansible.builtin.apt:
+      # Download and install vector packages
+      deb: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
+
+  - name: Vector | Upload vector config
+    # Render and upload vector simple config for work with clickhouse
+    become: true
+    ansible.builtin.template:
+      src: ./templates/vector.j2
+      dest: /etc/vector/vector.yaml
+      mode: "0444"
+      owner: "{{ ansible_user }}"
+    notify:
+      - Vector | Restart vector service

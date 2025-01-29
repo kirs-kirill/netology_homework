@@ -1,0 +1,28 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for lighthouse-role
+- name: Lighthouse | Install git
+  become: true
+  ansible.builtin.apt:
+    name: git
+- name: Lighthouse | install nginx
+  become: true
+  ansible.builtin.apt:
+    name:
+      - nginx
+
+- name: Lighthouse | Download lighthouse
+  # Download and install lighthouse
+  become: true
+  ansible.builtin.git:
+    repo: 'https://github.com/VKCOM/lighthouse.git'
+    dest: /home/{{ ansible_user }}/lighthouse
+    version: master
+- name: Lighthouse | Upload config
+  become: true
+  ansible.builtin.template:
+    src: ./templates/nginx.j2
+    dest: /etc/nginx/sites-enabled/default
+    mode: "0766"
+    owner: "{{ ansible_user }}"
+  notify: Lighthouse | Start nginx

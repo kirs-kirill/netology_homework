@@ -1,0 +1,16 @@
+sources:
+  syslog:
+    type: file
+    include:
+      - /var/log/auth.log
+
+sinks:
+  my_sink_id:
+    type: clickhouse
+    inputs:
+      - syslog
+    compression: none
+    database: logs
+    endpoint: http://{{ lighthouse_host }}:8123
+    format: json_each_row
+    table: access_logs
