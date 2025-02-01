@@ -2,7 +2,7 @@ sources:
   syslog:
     type: file
     include:
-      - /var/log/auth.log
+      - {{ src }}
 
 sinks:
   my_sink_id:
@@ -10,7 +10,7 @@ sinks:
     inputs:
       - syslog
     compression: none
-    database: logs
-    endpoint: http://{{ hostvars['clickhouse-1']['ansible_eth0']['ipv4']['address'] }}:8123
+    database: {{ clickhouse_db }}
+    endpoint: http://{{ clickhouse_host }}:{{ clickhouse_port }}
     format: json_each_row
-    table: access_logs
+    table: {{ db_table }}

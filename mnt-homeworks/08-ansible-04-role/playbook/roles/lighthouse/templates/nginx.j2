@@ -3,7 +3,7 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
-	root /home/{{ ansible_user }}/lighthouse;
+	root {{ path }};
 
 	index index.html index.htm index.nginx-debian.html;
 

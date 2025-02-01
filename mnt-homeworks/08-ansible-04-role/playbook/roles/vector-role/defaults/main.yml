@@ -1,6 +1,0 @@
-#SPDX-License-Identifier: MIT-0
----
-# defaults file for vector-role
-vector_version: "latest"
-vector_packages:
-  - vector
