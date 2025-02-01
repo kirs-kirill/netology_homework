@@ -15,7 +15,7 @@
     1. [Введение в Ansible](./mnt-homeworks/08-ansible-01-base/)
     2. [Работа с Playbook](./mnt-homeworks/08-ansible-02-playbook/)
     3. [Использование Ansible](./mnt-homeworks/08-ansible-03-yandex/)
-    4. [Работа с roles]()
+    4. [Работа с roles](./mnt-homeworks/08-ansible-04-role/)
 
 ```{include} ./mnt-homeworks/08-ansible-04-role/README.md
 ```
