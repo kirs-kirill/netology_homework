@@ -17,5 +17,5 @@
     3. [Использование Ansible](./mnt-homeworks/08-ansible-03-yandex/)
     4. [Работа с roles](./mnt-homeworks/08-ansible-04-role/)
 
-```{include} ./mnt-homeworks/08-ansible-04-role/README.md
-```
+4. Непрерывная разработка и интеграция
+    1. [Жизненный цикл ПО](./mnt-homeworks/09-ci-01-intro/)
