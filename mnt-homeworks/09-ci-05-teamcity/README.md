@@ -1,5 +1,7 @@
 # Домашнее задание к занятию 11 «Teamcity»
 
+[Ссылка на форк репозитория.](https://github.com/kirs-kirill/example-teamcity)
+
 1. <details>
     <summary>Создайте новый проект в teamcity на основе fork</summary>
 
