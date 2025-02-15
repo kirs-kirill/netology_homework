@@ -20,3 +20,6 @@
 4. Непрерывная разработка и интеграция
     1. [Жизненный цикл ПО](./mnt-homeworks/09-ci-01-intro/)
     2. [«Teamcity»](/mnt-homeworks/09-ci-05-teamcity/).
+
+5. Мониторинг и логи
+    1. [Системы мониторинга](./mnt-homeworks/10-monitoring-02-systems/)

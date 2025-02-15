@@ -11,3 +11,6 @@
 
 1. [Жизненный цикл ПО](./09-ci-01-intro/).
 1. [«Teamcity»](./09-ci-05-teamcity/).
+
+## Мониторинг и логи
+1. [Системы мониторинга](./mnt-homeworks/10-monitoring-02-systems/)
