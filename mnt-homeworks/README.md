@@ -14,3 +14,4 @@
 
 ## Мониторинг и логи
 1. [Системы мониторинга](./mnt-homeworks/10-monitoring-02-systems/)
+2. [«Средство визуализации Grafana»](./10-monitoring-03-grafana/)
