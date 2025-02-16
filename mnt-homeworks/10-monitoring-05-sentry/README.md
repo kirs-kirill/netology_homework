@@ -24,4 +24,6 @@
 
 Почему-то оповещения через тестовое событие не уходят при повторном открытии события, поэтому спровоцировал новое событие с помощью python-скрипта из урока.
 
-<img src="./images/4.png" alt="Resolved" width="350" height="300">
+<img src="./images/4.png" alt="Resolved" width="600" height="400">
+
+<img src="./images/5.png" alt="tg_alert" width="350" height="300">
