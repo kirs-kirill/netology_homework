@@ -16,3 +16,4 @@
 1. [Системы мониторинга](./mnt-homeworks/10-monitoring-02-systems/)
 2. [«Средство визуализации Grafana»](./10-monitoring-03-grafana/)
 3. [Система сбора логов Elastic Stack](./10-monitoring-04-elk/)
+4. [«Платформа мониторинга Sentry»](./10-monitoring-05-sentry/)
