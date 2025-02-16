@@ -24,3 +24,4 @@
 5. Мониторинг и логи
     1. [Системы мониторинга](./mnt-homeworks/10-monitoring-02-systems/)
     2. [«Средство визуализации Grafana»](./mnt-homeworks/10-monitoring-03-grafana/)
+    3. [Система сбора логов Elastic Stack](./mnt-homeworks/10-monitoring-04-elk/)
