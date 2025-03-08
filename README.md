@@ -35,3 +35,4 @@
 
 7. Kubernetes
     1. [Kubernetes. Причины появления. Команда kubectl](./kuber/1.1/)
+    2. [Базовые объекты K8S](./kuber/1.2/)
