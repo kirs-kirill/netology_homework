@@ -91,5 +91,18 @@
 
 #### Ответ
 
+ [`deployment-init.yaml`](./deployment-init.yaml)
 
+``` sh
+    usem@usem-notebook:~/git_repo/netology_homework/kuber/1.3$ kubectl apply -f deployment-init.yaml 
+    deployment.apps/myapp-pod created
+    usem@usem-notebook:~/git_repo/netology_homework/kuber/1.3$ kubectl get pods
+    NAME                         READY   STATUS     RESTARTS   AGE
+    myapp-pod-7cccdd58c7-b9qtc   0/1     Init:0/1   0          26s
+    usem@usem-notebook:~/git_repo/netology_homework/kuber/1.3$ kubectl apply -f service.yaml 
+    service/myapp-service created
+    usem@usem-notebook:~/git_repo/netology_homework/kuber/1.3$ kubectl get pods
+    NAME                         READY   STATUS    RESTARTS   AGE
+    myapp-pod-7cccdd58c7-b9qtc   1/1     Running   0          55s
+```
 ------
