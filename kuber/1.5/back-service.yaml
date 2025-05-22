@@ -9,4 +9,4 @@ spec:
   ports:
     - name: backend
       port: 9002
-      targetPort: 8080
+      targetPort: 80

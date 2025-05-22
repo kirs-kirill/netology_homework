@@ -1,9 +1,10 @@
 apiVersion: networking.k8s.io/v1 
 kind: Ingress
 metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
   name: ingress
 spec:
-  ingressClassName: "nginx"
   rules:
   - host: localhost
     http: 

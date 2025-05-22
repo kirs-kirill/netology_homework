@@ -98,15 +98,23 @@
 #### Решение
 
 1. ``` sh
-    usem@mbp ~ % minikube addons enable ingress
-    💡  ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
-    You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
-    💡  After the addon is enabled, please run "minikube tunnel" and your ingress resources would be available at "127.0.0.1"
-        ▪ Используется образ registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.4.4
-        ▪ Используется образ registry.k8s.io/ingress-nginx/controller:v1.11.3
-        ▪ Используется образ registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.4.4
-    🔎  Verifying ingress addon...
-    🌟  The 'ingress' addon is enabled
+    @usem-notebook:~/git_repo/netology_homework/kuber/1.5$ microk8s enable ingress
+    Infer repository core for addon ingress
+    Enabling Ingress
+    ingressclass.networking.k8s.io/public created
+    ingressclass.networking.k8s.io/nginx created
+    namespace/ingress created
+    serviceaccount/nginx-ingress-microk8s-serviceaccount created
+    clusterrole.rbac.authorization.k8s.io/nginx-ingress-microk8s-clusterrole created
+    role.rbac.authorization.k8s.io/nginx-ingress-microk8s-role created
+    clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-microk8s created
+    rolebinding.rbac.authorization.k8s.io/nginx-ingress-microk8s created
+    configmap/nginx-load-balancer-microk8s-conf created
+    configmap/nginx-ingress-tcp-microk8s-conf created
+    configmap/nginx-ingress-udp-microk8s-conf created
+    daemonset.apps/nginx-ingress-microk8s-controller created
+    Ingress is enabled
     ```
-2. 
+2. [`ingress.yaml`](./ingress.yaml)
+3. ![`result`](./images/1.png)
 ------
