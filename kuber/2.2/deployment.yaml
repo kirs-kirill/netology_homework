@@ -13,10 +13,6 @@ spec:
       labels:
         app: busybox-multitool
     spec:
-      volumes:
-        - name: pvc-storage
-          persistentVolumeClaim:
-            claimName: pvc-vol
       containers:
       - name: busybox
         image: busybox:latest
@@ -25,17 +21,20 @@ spec:
         - -c
         - |
           while true; do
-            echo "$(date +'%Y-%m-%d %H:%M:%S') Test from busybox" >> /output/log.txt
+            echo "$(date +'%Y-%m-%d %H:%M:%S') Test from busybox" >> /tmp/hwstorage/log.txt
             sleep 5
           done
         volumeMounts:
-        - name: pvc-storage
-          mountPath: /output
+        - name: persistent-storage
+          mountPath: /tmp/hwstorage
 
       - name: multitool
         image: wbitt/network-multitool
         volumeMounts:
-        - name: pvc-storage
-          mountPath: /shared-volume
-        ports:
-        - containerPort: 80
+        - name: persistent-storage
+          mountPath: /tmp/hwstorage
+    
+      volumes:
+      - name: persistent-storage 
+        persistentVolumeClaim:
+          claimName: pvc-storage         

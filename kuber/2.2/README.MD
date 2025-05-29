@@ -41,24 +41,25 @@
 1. [`deployment.yaml`](./deployment.yaml)
 2. [`pv.yaml`](./pv.yaml), [`pvc.yaml`](./pvc.yaml)
 3. ``` sh
-    usem@usem-notebook:~/.../2.2$ kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml 
+    ➜  2.2 git:(main) kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml
     persistentvolume/pv-storage created
     persistentvolumeclaim/pvc-vol created
     deployment.apps/busybox-multitool-deployment created
-
-    usem@usem-notebook:~/.../2.2$ kubectl get pv && kubectl get pvc && kubectl get pods
+    ➜  2.2 git:(main) kubectl get pv && kubectl get pvc && kubectl get pods
     NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
-    pv-storage   1Gi        RWO            Retain           Bound    default/pvc-vol   manual         <unset>                          9m22s
+    pv-storage   1Gi        RWO            Retain           Bound    default/pvc-vol   manual         <unset>                          45s
     NAME      STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-    pvc-vol   Bound    pv-storage   1Gi        RWO            manual         <unset>                 9m22s
+    pvc-vol   Bound    pv-storage   1Gi        RWO            manual         <unset>                 45s
     NAME                                            READY   STATUS    RESTARTS   AGE
-    busybox-multitool-deployment-79594fb56c-7j48s   2/2     Running   0          28s
+    busybox-multitool-deployment-79594fb56c-gbk7n   2/2     Running   0          45s
 
-    usem@usem-notebook:~/.../2.2$ kubectl exec deployments/busybox-multitool-deployment -c multitool -- cat /shared-volume/log.txt
-    2025-05-23 05:07:39 Test from busybox
-    2025-05-23 05:07:44 Test from busybox
-    2025-05-23 05:07:49 Test from busybox
-    2025-05-23 05:07:54 Test from busybox
+    ➜  2.2 git:(main) kubectl exec deployments/busybox-multitool-deployment -c multitool -- cat /shared-volume/log.txt
+    2025-05-28 10:18:20 Test from busybox
+    2025-05-28 10:18:25 Test from busybox
+    2025-05-28 10:18:30 Test from busybox
+    2025-05-28 10:18:35 Test from busybox
+    2025-05-28 10:18:40 Test from busybox
+
     ```
 4. ``` sh
     usem@usem-notebook:~/.../2.2$ kubectl delete -f pv.yaml -f pvc.yaml
