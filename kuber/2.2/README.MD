@@ -47,8 +47,8 @@
     minikube mount ./hw:/tmp/hw
     ```
     Было бы здорово, если бы об этом сообщили на вебинаре или оставили заметку в задании и мне не пришлось бы 2 дня тестировать разные версии minikube и mikrok8s на разных системах, думая что я что-то делаю неправильно.
-1. [`deployment.yaml`](./exercise_1/deployment.yaml)
-2. [`pv.yaml`](./exercise_1/pv.yaml), [`pvc.yaml`](./exercise_1/pvc.yaml)
+1. [`deployment.yaml`](./deployment.yaml)
+2. [`pv.yaml`](./pv.yaml), [`pvc.yaml`](./pvc.yaml)
 3. ``` sh
     ➜  2.2 git:(main) ✗ kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml
     persistentvolume/pv-homework created
