@@ -9,12 +9,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/hw
-  # nodeAffinity:
-  #   required:
-  #     nodeSelectorTerms:
-  #     - matchExpressions:
-  #       - key: kubernetes.io/hostname
-  #         operator: In
-  #         values:
-  #         - k8s
+    path: /tmp/hw
+  persistentVolumeReclaimPolicy: Retain

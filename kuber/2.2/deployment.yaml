@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: busybox-multitool-deployment
+  name: 2-2-deployment
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: busybox-multitool
+      app: 2-2-deployment
   template:
     metadata:
       labels:
-        app: busybox-multitool
+        app: 2-2-deployment
     spec:
       containers:
       - name: busybox

@@ -38,37 +38,65 @@
 
 #### Решение
 
+0. В minicube перед созданием PV с локальным содержимым нужно сначала примонтировать локальный каталог внутри minikube:
+    ```
+    minikube mount /path/from/system:/path/into/minikube
+    ```
+    У меня это:
+    ```
+    minikube mount ./hw:/tmp/hw
+    ```
+    Было бы здорово, если бы об этом сообщили на вебинаре или оставили заметку в задании и мне не пришлось бы 2 дня тестировать разные версии minikube и mikrok8s на разных системах, думая что я что-то делаю неправильно.
 1. [`deployment.yaml`](./deployment.yaml)
 2. [`pv.yaml`](./pv.yaml), [`pvc.yaml`](./pvc.yaml)
 3. ``` sh
-    ➜  2.2 git:(main) kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml
-    persistentvolume/pv-storage created
-    persistentvolumeclaim/pvc-vol created
-    deployment.apps/busybox-multitool-deployment created
-    ➜  2.2 git:(main) kubectl get pv && kubectl get pvc && kubectl get pods
-    NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
-    pv-storage   1Gi        RWO            Retain           Bound    default/pvc-vol   manual         <unset>                          45s
-    NAME      STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-    pvc-vol   Bound    pv-storage   1Gi        RWO            manual         <unset>                 45s
-    NAME                                            READY   STATUS    RESTARTS   AGE
-    busybox-multitool-deployment-79594fb56c-gbk7n   2/2     Running   0          45s
+    ➜  2.2 git:(main) ✗ kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml
+    persistentvolume/pv-homework created
+    persistentvolumeclaim/pvc-storage created
+    deployment.apps/2-2-deployment created
 
-    ➜  2.2 git:(main) kubectl exec deployments/busybox-multitool-deployment -c multitool -- cat /shared-volume/log.txt
-    2025-05-28 10:18:20 Test from busybox
-    2025-05-28 10:18:25 Test from busybox
-    2025-05-28 10:18:30 Test from busybox
-    2025-05-28 10:18:35 Test from busybox
-    2025-05-28 10:18:40 Test from busybox
+    ➜  2.2 git:(main) ✗ kubectl get pv && kubectl get pvc
+    NAME          CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+    pv-homework   1Gi        RWO            Retain           Bound    default/pvc-storage   manual         <unset>                          3s
+    NAME          STATUS   VOLUME        CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+    pvc-storage   Bound    pv-homework   1Gi        RWO            manual         <unset>                 3s
 
+    ➜  2.2 git:(main) ✗ kubectl get pods
+    NAME                             READY   STATUS    RESTARTS   AGE
+    2-2-deployment-878b99f75-68cr8   2/2     Running   0          9s
+
+    ➜  2.2 git:(main) ✗ kubectl exec 2-2-deployment-878b99f75-68cr8 -c busybox -- cat /tmp/hwstorage/log.txt 
+    2025-05-30 09:37:25 Test from busybox
+    2025-05-30 09:37:30 Test from busybox
+    2025-05-30 09:37:35 Test from busybox
+    2025-05-30 09:37:40 Test from busybox
+
+    ➜  2.2 git:(main) ✗ kubectl exec 2-2-deployment-878b99f75-68cr8 -c multitool -- cat /tmp/hwstorage/log.txt 
+    2025-05-30 09:37:25 Test from busybox
+    2025-05-30 09:37:30 Test from busybox
+    2025-05-30 09:37:35 Test from busybox
+    2025-05-30 09:37:40 Test from busybox
     ```
 4. ``` sh
-    usem@usem-notebook:~/.../2.2$ kubectl delete -f pv.yaml -f pvc.yaml
-    persistentvolume "pv-storage" deleted
-    persistentvolumeclaim "pvc-vol" deleted
-    usem@usem-notebook:~/.../2.2$ kubectl get pv && kubectl get pvc
-    No resources found
-    No resources found in default namespace.
+    ➜  2.2 git:(main) ✗ kubectl delete -f pvc.yaml -f deployment.yaml
+    persistentvolumeclaim "pvc-storage" deleted
+    deployment.apps "2-2-deployment" deleted
+
+    ➜  2.2 git:(main) ✗ kubectl get pv
+    NAME          CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+    pv-homework   1Gi        RWO            Retain           Released   default/pvc-storage   manual         <unset>                          57s
     ```
+    PV перешел в статус `Released`, т.к. больше нет PVC, которое бы ассоциировалось с этим PV
+5. ``` sh
+    ➜  2.2 git:(main) ✗ ls ./hw
+    log.txt
+    ➜  2.2 git:(main) ✗ kubectl delete persistentvolume pv-homework 
+    persistentvolume "pv-homework" deleted
+    ➜  2.2 git:(main) ✗ ls ./hw                                    
+    log.txt
+    ```
+    После удаления PV файл остался существовать, т.к. при создании PV было указано `persistentVolumeReclaimPolicy: Retain`
+
 ------
 
 ### Задание 2
@@ -84,8 +112,4 @@
 
 ------
 
-### Правила приёма работы
 
-1. Домашняя работа оформляется в своём Git-репозитории в файле README.md. Выполненное задание пришлите ссылкой на .md-файл в вашем репозитории.
-2. Файл README.md должен содержать скриншоты вывода необходимых команд `kubectl`, а также скриншоты результатов.
-3. Репозиторий должен содержать тексты манифестов или ссылки на них в файле README.md.
