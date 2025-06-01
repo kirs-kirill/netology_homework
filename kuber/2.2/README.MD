@@ -47,52 +47,52 @@
     minikube mount ./hw:/tmp/hw
     ```
     Было бы здорово, если бы об этом сообщили на вебинаре или оставили заметку в задании и мне не пришлось бы 2 дня тестировать разные версии minikube и mikrok8s на разных системах, думая что я что-то делаю неправильно.
-1. [`deployment.yaml`](./deployment.yaml)
-2. [`pv.yaml`](./pv.yaml), [`pvc.yaml`](./pvc.yaml)
+1. [`deployment.yaml`](./exercise_1/deployment.yaml)
+2. [`pv.yaml`](./exercise_1/pv.yaml), [`pvc.yaml`](./exercise_1/pvc.yaml)
 3. ``` sh
-    ➜  2.2 git:(main) ✗ kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml
+    ➜  exercise_1 git:(main) ✗ kubectl apply -f pv.yaml -f pvc.yaml -f deployment.yaml
     persistentvolume/pv-homework created
     persistentvolumeclaim/pvc-storage created
     deployment.apps/2-2-deployment created
 
-    ➜  2.2 git:(main) ✗ kubectl get pv && kubectl get pvc
+    ➜  exercise_1 git:(main) ✗ kubectl get pv && kubectl get pvc
     NAME          CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
     pv-homework   1Gi        RWO            Retain           Bound    default/pvc-storage   manual         <unset>                          3s
     NAME          STATUS   VOLUME        CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
     pvc-storage   Bound    pv-homework   1Gi        RWO            manual         <unset>                 3s
 
-    ➜  2.2 git:(main) ✗ kubectl get pods
+    ➜  exercise_1 git:(main) ✗ kubectl get pods
     NAME                             READY   STATUS    RESTARTS   AGE
     2-2-deployment-878b99f75-68cr8   2/2     Running   0          9s
 
-    ➜  2.2 git:(main) ✗ kubectl exec 2-2-deployment-878b99f75-68cr8 -c busybox -- cat /tmp/hwstorage/log.txt 
+    ➜  exercise_1 git:(main) ✗ kubectl exec 2-2-deployment-878b99f75-68cr8 -c busybox -- cat /tmp/hwstorage/log.txt 
     2025-05-30 09:37:25 Test from busybox
     2025-05-30 09:37:30 Test from busybox
     2025-05-30 09:37:35 Test from busybox
     2025-05-30 09:37:40 Test from busybox
 
-    ➜  2.2 git:(main) ✗ kubectl exec 2-2-deployment-878b99f75-68cr8 -c multitool -- cat /tmp/hwstorage/log.txt 
+    ➜  exercise_1 git:(main) ✗ kubectl exec 2-2-deployment-878b99f75-68cr8 -c multitool -- cat /tmp/hwstorage/log.txt 
     2025-05-30 09:37:25 Test from busybox
     2025-05-30 09:37:30 Test from busybox
     2025-05-30 09:37:35 Test from busybox
     2025-05-30 09:37:40 Test from busybox
     ```
 4. ``` sh
-    ➜  2.2 git:(main) ✗ kubectl delete -f pvc.yaml -f deployment.yaml
+    ➜  exercise_1 git:(main) ✗ kubectl delete -f pvc.yaml -f deployment.yaml
     persistentvolumeclaim "pvc-storage" deleted
     deployment.apps "2-2-deployment" deleted
 
-    ➜  2.2 git:(main) ✗ kubectl get pv
+    ➜  exercise_1 git:(main) ✗ kubectl get pv
     NAME          CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
     pv-homework   1Gi        RWO            Retain           Released   default/pvc-storage   manual         <unset>                          57s
     ```
     PV перешел в статус `Released`, т.к. больше нет PVC, которое бы ассоциировалось с этим PV
 5. ``` sh
-    ➜  2.2 git:(main) ✗ ls ./hw
+    ➜  exercise_1 git:(main) ✗ ls ./hw
     log.txt
-    ➜  2.2 git:(main) ✗ kubectl delete persistentvolume pv-homework 
+    ➜  exercise_1 git:(main) ✗ kubectl delete persistentvolume pv-homework 
     persistentvolume "pv-homework" deleted
-    ➜  2.2 git:(main) ✗ ls ./hw                                    
+    ➜  exercise_1 git:(main) ✗ ls ./hw                                    
     log.txt
     ```
     После удаления PV файл остался существовать, т.к. при создании PV было указано `persistentVolumeReclaimPolicy: Retain`
@@ -110,6 +110,69 @@
 3. Продемонстрировать возможность чтения и записи файла изнутри пода. 
 4. Предоставить манифесты, а также скриншоты или вывод необходимых команд.
 
+
+#### Решение
+
+0. Инструкция из задания более не актуальна, аддон `nfs` в microk8s не поддерживается.
+1. Настроил NFS-сервер на ноде согласно [`инструкции`](https://documentation.ubuntu.com/server/how-to/networking/install-nfs/index.html) и установил [`nfs-драйвер для minicube`](https://github.com/kubernetes-csi/csi-driver-nfs).
+2.  *   [`storageClass.yaml`](./exercise_2/storageClass.yaml) описывает параметры подключения, сервер, тип монтирования и reaclaimPolicy;
+    *   [`pvc.yaml`](./exercise_2/pvc.yaml) описывает размер и тип хранилища и параметры доступа;
+    *   [`deployment.yaml](./exercise_2/deployment.yaml) взят из задания 1. 
+3.  ``` sh
+    ➜  exercise_2 git:(main) ✗ kubectl apply -f storageClass.yaml -f pvc.yaml -f deployment.yaml 
+    storageclass.storage.k8s.io/nfs-csi created
+    persistentvolumeclaim/pvc-storage created
+    deployment.apps/2-2-deployment created
+
+    ➜  exercise_2 git:(main) ✗ kubectl exec deployments/2-2-deployment -c busybox -- cat /tmp/hwstorage/log.txt
+    2025-06-01 09:21:39 Test from busybox
+    2025-06-01 09:21:44 Test from busybox
+    2025-06-01 09:21:49 Test from busybox
+    2025-06-01 09:21:54 Test from busybox
+    2025-06-01 09:21:59 Test from busybox
+
+    ➜  exercise_2 git:(main) ✗ kubectl exec deployments/2-2-deployment -c multitool -- cat /tmp/hwstorage/log.txt 
+    2025-06-01 09:21:39 Test from busybox
+    2025-06-01 09:21:44 Test from busybox
+    2025-06-01 09:21:49 Test from busybox
+    2025-06-01 09:21:54 Test from busybox
+    2025-06-01 09:21:59 Test from busybox
+
+    ➜  exercise_2 git:(main) ✗ ls /srv/nfs 
+    index.html  pvc-ece25294-72ba-4339-b510-cf282e058d23
+    ➜  exercise_2 git:(main) ✗ ls /srv/nfs/pvc-ece25294-72ba-4339-b510-cf282e058d23 
+    log.txt
+    ➜  exercise_2 git:(main) ✗ cat /srv/nfs/pvc-ece25294-72ba-4339-b510-cf282e058d23/log.txt 
+    2025-06-01 09:21:39 Test from busybox
+    2025-06-01 09:21:44 Test from busybox
+    2025-06-01 09:21:49 Test from busybox
+    2025-06-01 09:21:54 Test from busybox
+    2025-06-01 09:21:59 Test from busybox
+    
+    ➜  exercise_2 git:(main) ✗ kubectl describe pvc pvc-storage 
+    Name:          pvc-storage
+    Namespace:     default
+    StorageClass:  nfs-csi
+    Status:        Bound
+    Volume:        pvc-ece25294-72ba-4339-b510-cf282e058d23
+    Labels:        <none>
+    Annotations:   pv.kubernetes.io/bind-completed: yes
+                   pv.kubernetes.io/bound-by-controller: yes
+                   volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+                   volume.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    Finalizers:    [kubernetes.io/pvc-protection]
+    Capacity:      1Gi
+    Access Modes:  RWO
+    VolumeMode:    Filesystem
+    Used By:       <none>
+    Events:
+      Type    Reason                 Age    From                                                          Message
+      ----    ------                 ----   ----                                                          -------
+      Normal  Provisioning           3m37s  nfs.csi.k8s.io_minikube_469aa7ef-fc60-4b33-8798-edac808fbdf9  External provisioner is provisioning volume for claim "default/pvc-storage"
+      Normal  ExternalProvisioning   3m37s  persistentvolume-controller                                   Waiting for a volume to be created either by the external provisioner 'nfs.csi.k8s.io' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+      Normal  ProvisioningSucceeded  3m37s  nfs.csi.k8s.io_minikube_469aa7ef-fc60-4b33-8798-edac808fbdf9  Successfully provisioned volume pvc-ece25294-72ba-4339-b510-cf282e058d23
+    ```
+    
 ------
 
 
