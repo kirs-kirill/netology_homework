@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-cm
+data:
+  HTTP_PORT: "1080"
+  index.html: |
+    <html>
+    <body>
+    Kirsanov test page
+    </body>
+    </html>
+
