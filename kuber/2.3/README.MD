@@ -99,19 +99,23 @@
 4. [`ingress.yaml`](./exercise_2/ingress.yaml), [`service.yaml`](./exercise_2/service.yaml)
 
     ``` sh
-    ➜  exercise_2 git:(main) ✗ links2  -source https://k8s.test 
-    Invalid certificate
+    ➜  exercise_2 git:(main) ✗ curl https://k8s.test
+    curl: (60) SSL certificate problem: self-signed certificate
+    More details here: https://curl.se/docs/sslcerts.html
+
+    curl failed to verify the legitimacy of the server and therefore could not
+    establish a secure connection to it. To learn more about this situation and
+    how to fix it, please visit the web page mentioned above.
     ```
-    Как видим, links2 ругается на непроверенный сертификат, попробуем проигнорировать ошибку:
+
+    Как видим, curl ругается на непроверенный сертификат, попробуем проигнорировать ошибку:
+
     ``` sh
-    ➜  exercise_2 git:(main) ✗ links2 -ssl.certificates 0 -source https://k8s.test
+    ➜  exercise_2 git:(main) curl https://k8s.test --insecure
     <html>
     <body>
     Kirsanov second test page
     </body>
     </html>
-    
-    ➜  exercise_2 git:(main) ✗ links2 -ssl.certificates 0 -dump https://k8s.test
-    Kirsanov second test page
     ```
 ------
