@@ -95,4 +95,23 @@
         - name: cm-volume
           mountPath: /usr/share/nginx/html
     ```
+3. [`secret.yaml`](./exercise_2/secret.yaml)
+4. [`ingress.yaml`](./exercise_2/ingress.yaml), [`service.yaml`](./exercise_2/service.yaml)
+
+    ``` sh
+    ➜  exercise_2 git:(main) ✗ links2  -source https://k8s.test 
+    Invalid certificate
+    ```
+    Как видим, links2 ругается на непроверенный сертификат, попробуем проигнорировать ошибку:
+    ``` sh
+    ➜  exercise_2 git:(main) ✗ links2 -ssl.certificates 0 -source https://k8s.test
+    <html>
+    <body>
+    Kirsanov second test page
+    </body>
+    </html>
+    
+    ➜  exercise_2 git:(main) ✗ links2 -ssl.certificates 0 -dump https://k8s.test
+    Kirsanov second test page
+    ```
 ------
