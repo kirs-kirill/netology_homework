@@ -3,14 +3,14 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  name: ingress
+  name: my-app-ingress
 spec:
   tls:
   - hosts:
-      - localhost
+      - k8s.test
     secretName: secret-tls
   rules:
-  - host: localhost
+  - host: k8s.test
     http: 
       paths:
       - path: /
@@ -19,4 +19,4 @@ spec:
           service:
             name: my-app-service
             port: 
-              number: 9001
+              number: 80
