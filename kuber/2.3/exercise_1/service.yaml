@@ -7,10 +7,10 @@ spec:
     app: my-app
   ports:
     - protocol: TCP
-      name: nginx
+      name: http
       port: 80
       targetPort: 80
-    - protocol: TCP
-      name: multitool
-      port: 1180
-      targetPort: 1180
+    # - protocol: TCP
+    #   name: https
+    #   port: 443
+    #   targetPort: 443

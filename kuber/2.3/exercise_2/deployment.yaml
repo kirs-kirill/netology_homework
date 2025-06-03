@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels: 
+        app: my-app
+    spec:
+      volumes:
+      - name: cm-volume   
+        configMap:  # подключаем configMap как volume
+          name: my-app-cm # имя configMap
+      containers:
+      - name: nginx
+        image: nginx
+        ports: 
+        - containerPort: 80
+        volumeMounts: # монтируем volume с configMap
+        - name: cm-volume
+          mountPath: /usr/share/nginx/html

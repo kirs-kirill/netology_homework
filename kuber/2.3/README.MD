@@ -78,4 +78,21 @@
 4. Создать Ingress и необходимый Service, подключить к нему SSL в вид. Продемонстировать доступ к приложению по HTTPS. 
 4. Предоставить манифесты, а также скриншоты или вывод необходимых команд.
 
+#### Решение
+
+1. [`deployment.yaml`](./exercise_2/deployment.yaml)
+2. [`configMap.yaml`](./exercise_2/configMap.yaml)
+    ``` yaml
+    spec:
+      volumes:
+      - name: cm-volume   
+        configMap:  # подключаем configMap как volume
+          name: my-app-cm # имя configMap
+      containers:
+      - name: nginx
+        image: nginx:latest
+        volumeMounts: # монтируем volume с configMap
+        - name: cm-volume
+          mountPath: /usr/share/nginx/html
+    ```
 ------
