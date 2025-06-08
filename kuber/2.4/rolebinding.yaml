@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: homework_role_binding
+  namespace: hw-namespace
+subjects:
+- kind: User
+  name: homework
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: hw-role
+  apiGroup: rbac.authorization.k8s.io

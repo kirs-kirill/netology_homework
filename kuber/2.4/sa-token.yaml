@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hw-token
+  namespace: hw-namespace
+  annotations:
+    kubernetes.io/service-account.name: hw-serviceaccount
+type: kubernetes.io/service-account-token
