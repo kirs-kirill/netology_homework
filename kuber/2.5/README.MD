@@ -38,7 +38,7 @@
     ➜  hw-chart git:(main) ✗ rm -rf ./templates/*
     ```
 
-    В качестве приложения возьмём deployment'ы и ingress из задания 1.5. А в качестве образа для frontend'а образ из задания по докеру, не зря же делали.
+    В качестве приложения возьмём deployment'ы из задания 1.5.
 
     В результате имеем следующие файлы:
     ``` sh
@@ -72,8 +72,8 @@
       front:
         name: frontend
         replicas: 1
-        image: kirskirill/custom-nginx
-        tag: 1.0.0
+        image: nginx
+        tag: latest
         containerPort: 80
         labels:
           app: frontend
@@ -99,36 +99,8 @@
         ports:
           port: 9002
           targetPort: 80
-
-    ingress:
-      name: ingress
-      host: k8s.test
     ```
 
-    Пример [`front.yaml`](./hw-chart/templates/front.yaml)
-    ``` yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: {{ .Values.deployment.front.name }}
-      labels:
-        app: {{ .Values.deployment.front.labels.app }}
-    spec:
-      replicas: {{ .Values.deployment.front.replicas }}
-      selector:
-        matchLabels:
-          app: {{ .Values.deployment.front.labels.app }}
-      template:
-        metadata:
-          labels: 
-            app: {{ .Values.deployment.front.labels.app }}
-        spec:
-          containers:
-          - name: {{ .Values.deployment.front.name }}
-            image: {{ .Values.deployment.front.image }}:{{ .Values.deployment.front.tag }}
-            ports: 
-            - containerPort: {{ .Values.deployment.front.containerPort }}
-    ```
 ------
 ### Задание 2. Запустить две версии в разных неймспейсах
 
@@ -145,62 +117,67 @@
 
 1. Проверим что чарт запускается: 
     ``` sh
-    ➜  2.5 git:(main) ✗ helm install hw-app --set deployment.front.replicas=10 --set deployment.back.replicas=10 hw-chart
-
+    ➜  2.5 git:(main) ✗ helm install hw-app --set deployment.front.replicas=3 hw-chart
     NAME: hw-app
-    LAST DEPLOYED: Mon Jun  9 06:52:25 2025
+    LAST DEPLOYED: Mon Jun  9 11:31:32 2025
     NAMESPACE: default
     STATUS: deployed
     REVISION: 1
     TEST SUITE: None
+    ➜  2.5 git:(main) ✗ helm list
+    NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+    hw-app  default         1               2025-06-09 11:31:32.769568202 +0000 UTC deployed        hw-chart-0.1.0  1.16.0     
     ➜  2.5 git:(main) ✗ kubectl get all
-    NAME                            READY   STATUS    RESTARTS   AGE
-    pod/backend-6f4f7644f7-2qnsz    1/1     Running   0          59s
-    pod/backend-6f4f7644f7-4rmv8    1/1     Running   0          58s
-    pod/backend-6f4f7644f7-5cb46    1/1     Running   0          59s
-    pod/backend-6f4f7644f7-8mfrf    1/1     Running   0          59s
-    pod/backend-6f4f7644f7-fbmnv    1/1     Running   0          59s
-    pod/backend-6f4f7644f7-gh77k    1/1     Running   0          58s
-    pod/backend-6f4f7644f7-lxrnp    1/1     Running   0          59s
-    pod/backend-6f4f7644f7-nzr5p    1/1     Running   0          59s
-    pod/backend-6f4f7644f7-wvc24    1/1     Running   0          58s
-    pod/backend-6f4f7644f7-zlf6p    1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-9pq4k   1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-bzx7v   1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-fplnb   1/1     Running   0          58s
-    pod/frontend-5f998bfcb8-gkqpm   1/1     Running   0          58s
-    pod/frontend-5f998bfcb8-gwhq5   1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-j5lnk   1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-k524f   1/1     Running   0          58s
-    pod/frontend-5f998bfcb8-mfgx4   1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-mswl2   1/1     Running   0          59s
-    pod/frontend-5f998bfcb8-qwd6r   1/1     Running   0          59s
+    NAME                                     READY   STATUS    RESTARTS   AGE
+    pod/hw-app-deployment-5dd85d97b8-2qkbm   1/1     Running   0          35s
+    pod/hw-app-deployment-5dd85d97b8-8h7dq   1/1     Running   0          35s
+    pod/hw-app-deployment-5dd85d97b8-cl9qp   1/1     Running   0          35s
 
-    NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-    service/backend-service    ClusterIP   10.110.70.173    <none>        9002/TCP   59s
-    service/frontend-service   ClusterIP   10.109.121.236   <none>        9001/TCP   59s
-    service/kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP    11d
+    NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+    service/hw-app-frontend   ClusterIP   10.109.86.104   <none>        9001/TCP   35s
+    service/kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP    12d
 
-    NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
-    deployment.apps/backend    10/10   10           10          59s
-    deployment.apps/frontend   10/10   10           10          59s
+    NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+    deployment.apps/hw-app-deployment   3/3     3            3           35s
 
-    NAME                                  DESIRED   CURRENT   READY   AGE
-    replicaset.apps/backend-6f4f7644f7    10        10        10      59s
-    replicaset.apps/frontend-5f998bfcb8   10        10        10      59s
-    ➜  2.5 git:(main) ✗ curl k8s.test
-    <html>
-    <head>
-    Hey, Netology
-    </head>
-    <body>
-    <h1>I will be DevOps Engineer!</h1>
-    </body>
-    </html>   
+    NAME                                           DESIRED   CURRENT   READY   AGE
+    replicaset.apps/hw-app-deployment-5dd85d97b8   3         3         3       35s
     ```
 
 2. ``` sh
-    helm install hw-app-v1 -n app1 hw-chart
-    helm install hw-app-v2 -n app1 hw-chart
-    helm install hw-app-v3 -n app2 hw-chart
+    helm install hw-app-v1 ./hw-chart --namespace app1
+    helm install hw-app-v2 ./hw-chart --namespace app1
+    helm install hw-app-v3 ./hw-chart --namespace app2
+    ```
+
+    ``` sh
+    ➜  2.5 git:(main) ✗ helm install hw-app-v1 ./hw-chart --namespace app1
+    NAME: hw-app-v1
+    LAST DEPLOYED: Mon Jun  9 11:29:51 2025
+    NAMESPACE: app1
+    STATUS: deployed
+    REVISION: 1
+    TEST SUITE: None
+
+    ➜  2.5 git:(main) ✗ helm install hw-app-v2 ./hw-chart --namespace app1
+    NAME: hw-app-v2
+    LAST DEPLOYED: Mon Jun  9 11:29:55 2025
+    NAMESPACE: app1
+    STATUS: deployed
+    REVISION: 1
+    TEST SUITE: None
+
+    ➜  2.5 git:(main) ✗ helm install hw-app-v3 ./hw-chart --namespace app2
+    NAME: hw-app-v3
+    LAST DEPLOYED: Mon Jun  9 11:29:58 2025
+    NAMESPACE: app2
+    STATUS: deployed
+    REVISION: 1
+    TEST SUITE: None
+
+    ➜  2.5 git:(main) ✗ helm list -A
+    NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+    hw-app-v1       app1            1               2025-06-09 11:29:51.053467859 +0000 UTC deployed        hw-chart-0.1.0  1.16.0     
+    hw-app-v2       app1            1               2025-06-09 11:29:55.30700384 +0000 UTC  deployed        hw-chart-0.1.0  1.16.0     
+    hw-app-v3       app2            1               2025-06-09 11:29:58.915411829 +0000 UTC deployed        hw-chart-0.1.0  1.16.0 
     ```
