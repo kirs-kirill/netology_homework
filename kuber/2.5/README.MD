@@ -102,7 +102,7 @@
 
     ingress:
       name: ingress
-      host: localhost
+      host: k8s.test
     ```
 
     Пример [`front.yaml`](./hw-chart/templates/front.yaml)
@@ -145,74 +145,62 @@
 
 1. Проверим что чарт запускается: 
     ``` sh
-    ➜  2.5 git:(main) helm install hw-app hw-chart  
+    ➜  2.5 git:(main) ✗ helm install hw-app --set deployment.front.replicas=10 --set deployment.back.replicas=10 hw-chart
+
     NAME: hw-app
-    LAST DEPLOYED: Mon Jun  9 10:18:33 2025
+    LAST DEPLOYED: Mon Jun  9 06:52:25 2025
     NAMESPACE: default
     STATUS: deployed
     REVISION: 1
     TEST SUITE: None
-    ➜  2.5 git:(main) kubectl get all
+    ➜  2.5 git:(main) ✗ kubectl get all
     NAME                            READY   STATUS    RESTARTS   AGE
-    pod/backend-6f4f7644f7-7tpm9    1/1     Running   0          52s
-    pod/frontend-5f998bfcb8-ngwft   1/1     Running   0          52s
+    pod/backend-6f4f7644f7-2qnsz    1/1     Running   0          59s
+    pod/backend-6f4f7644f7-4rmv8    1/1     Running   0          58s
+    pod/backend-6f4f7644f7-5cb46    1/1     Running   0          59s
+    pod/backend-6f4f7644f7-8mfrf    1/1     Running   0          59s
+    pod/backend-6f4f7644f7-fbmnv    1/1     Running   0          59s
+    pod/backend-6f4f7644f7-gh77k    1/1     Running   0          58s
+    pod/backend-6f4f7644f7-lxrnp    1/1     Running   0          59s
+    pod/backend-6f4f7644f7-nzr5p    1/1     Running   0          59s
+    pod/backend-6f4f7644f7-wvc24    1/1     Running   0          58s
+    pod/backend-6f4f7644f7-zlf6p    1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-9pq4k   1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-bzx7v   1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-fplnb   1/1     Running   0          58s
+    pod/frontend-5f998bfcb8-gkqpm   1/1     Running   0          58s
+    pod/frontend-5f998bfcb8-gwhq5   1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-j5lnk   1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-k524f   1/1     Running   0          58s
+    pod/frontend-5f998bfcb8-mfgx4   1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-mswl2   1/1     Running   0          59s
+    pod/frontend-5f998bfcb8-qwd6r   1/1     Running   0          59s
 
     NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-    service/backend-service    ClusterIP   10.109.75.147    <none>        9002/TCP   52s
-    service/frontend-service   ClusterIP   10.101.106.113   <none>        9001/TCP   52s
-    service/kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP    21d
+    service/backend-service    ClusterIP   10.110.70.173    <none>        9002/TCP   59s
+    service/frontend-service   ClusterIP   10.109.121.236   <none>        9001/TCP   59s
+    service/kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP    11d
 
     NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
-    deployment.apps/backend    1/1     1            1           52s
-    deployment.apps/frontend   1/1     1            1           52s
+    deployment.apps/backend    10/10   10           10          59s
+    deployment.apps/frontend   10/10   10           10          59s
 
     NAME                                  DESIRED   CURRENT   READY   AGE
-    replicaset.apps/backend-6f4f7644f7    1         1         1       52s
-    replicaset.apps/frontend-5f998bfcb8   1         1         1       52s
+    replicaset.apps/backend-6f4f7644f7    10        10        10      59s
+    replicaset.apps/frontend-5f998bfcb8   10        10        10      59s
+    ➜  2.5 git:(main) ✗ curl k8s.test
+    <html>
+    <head>
+    Hey, Netology
+    </head>
+    <body>
+    <h1>I will be DevOps Engineer!</h1>
+    </body>
+    </html>   
     ```
-    ``` sh
-    ➜  2.5 git:(main) ✗ helm show all ./hw-chart/          
-    apiVersion: v2
-    appVersion: 1.16.0
-    description: Chart for kuber-2.5
-    name: hw-chart
-    type: application
-    version: 0.1.0
-    
-    ---
-    deployment:
-      front:
-        name: frontend
-        replicas: 1
-        image: kirskirill/custom-nginx
-        tag: 1.0.0
-        containerPort: 80
-        labels:
-          app: frontend
-      back:
-        name: backend
-        replicas: 1
-        image: wbitt/network-multitool
-        tag: latest
-        containerPort: 80
-        labels:
-          app: backend
-    
-    service:
-      front:
-        name: frontend-service
-        selector: frontend
-        ports:
-          port: 9001
-          targetPort: 80
-      back:
-        name: backend-service
-        selector: backend
-        ports:
-          port: 9002
-          targetPort: 80
-    
-    ingress:
-      name: ingress
-      host: localhost
+
+2. ``` sh
+    helm install hw-app-v1 -n app1 hw-chart
+    helm install hw-app-v2 -n app1 hw-chart
+    helm install hw-app-v3 -n app2 hw-chart
     ```

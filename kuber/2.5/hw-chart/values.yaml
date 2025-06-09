@@ -1,7 +1,7 @@
 deployment:
   front:
     name: frontend
-    replicas: 1
+    replicas: 2
     image: kirskirill/custom-nginx
     tag: 1.0.0
     containerPort: 80
@@ -9,7 +9,7 @@ deployment:
       app: frontend
   back:
     name: backend
-    replicas: 1
+    replicas: 2
     image: wbitt/network-multitool
     tag: latest
     containerPort: 80

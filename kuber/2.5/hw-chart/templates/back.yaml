@@ -5,6 +5,7 @@ metadata:
   labels:
     app: {{ .Values.deployment.back.labels.app }}
 spec:
+  replicas: {{ .Values.deployment.back.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.deployment.back.labels.app }}
