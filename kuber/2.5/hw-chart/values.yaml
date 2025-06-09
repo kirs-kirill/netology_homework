@@ -32,4 +32,4 @@ service:
 
 ingress:
   name: ingress
-  host: localhost
+  host: k8s.test
