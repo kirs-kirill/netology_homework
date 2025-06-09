@@ -47,11 +47,8 @@
     ├── [hw-chart](./hw-chart/)
     │   ├── Chart.yaml
     │   ├── templates
-    │   │   ├── back-service.yaml
-    │   │   ├── back.yaml
     │   │   ├── front-service.yaml
-    │   │   ├── front.yaml
-    │   │   └── ingress.yaml
+    │   │   └── front.yaml
     │   └── values.yaml
     └── README.MD
     ```
