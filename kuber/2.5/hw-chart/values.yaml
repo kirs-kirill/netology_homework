@@ -1,70 +1,35 @@
-replicaCount: 1
-
-image:
-  repository: kirskirill/custom-nginx
-  pullPolicy: IfNotPresent
-  tag: "1.0.0"
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-serviceAccount:
-  create: true
-  automount: true
-  annotations: {}
-  name: ""
-
-podAnnotations: {}
-podLabels: {}
-
-podSecurityContext: {}
-
-securityContext: {}
+deployment:
+  front:
+    name: frontend
+    replicas: 1
+    image: kirskirill/custom-nginx
+    tag: 1.0.0
+    containerPort: 80
+    labels:
+      app: frontend
+  back:
+    name: backend
+    replicas: 1
+    image: wbitt/network-multitool
+    tag: latest
+    containerPort: 80
+    labels:
+      app: backend
 
 service:
-  type: ClusterIP
-  port: 80
+  front:
+    name: frontend-service
+    selector: frontend
+    ports:
+      port: 9001
+      targetPort: 80
+  back:
+    name: backend-service
+    selector: backend
+    ports:
+      port: 9002
+      targetPort: 80
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-
-volumes: []
-
-volumeMounts: []
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+  name: ingress
+  host: localhost

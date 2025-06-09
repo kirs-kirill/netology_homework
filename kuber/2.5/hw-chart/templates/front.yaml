@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.front.name }}
+  labels:
+    app: {{ .Values.deployment.front.labels.app }}
+spec:
+  replicas: {{ .Values.deployment.front.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.front.labels.app }}
+  template:
+    metadata:
+      labels: 
+        app: {{ .Values.deployment.front.labels.app }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.front.name }}
+        image: {{ .Values.deployment.front.image }}:{{ .Values.deployment.front.tag }}
+        ports: 
+        - containerPort: {{ .Values.deployment.front.containerPort }}

@@ -38,6 +38,24 @@
     ➜  hw-chart git:(main) ✗ rm -rf ./templates/*
     ```
 
+    В качестве приложения возьмём deployment'ы и ingress из задания 1.5. А в качестве образа для frontend'а образ из задания по докеру, не зря же делали.
+
+    В результате имеем следующие файлы:
+    ``` sh
+    ➜  2.5 git:(main) ✗ tree
+    .
+    ├── [hw-chart](./hw-chart/)
+    │   ├── Chart.yaml
+    │   ├── templates
+    │   │   ├── back-service.yaml
+    │   │   ├── back.yaml
+    │   │   ├── front-service.yaml
+    │   │   ├── front.yaml
+    │   │   └── ingress.yaml
+    │   └── values.yaml
+    └── README.MD
+    ```
+
 ------
 ### Задание 2. Запустить две версии в разных неймспейсах
 
