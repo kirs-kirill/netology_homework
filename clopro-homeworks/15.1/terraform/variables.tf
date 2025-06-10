@@ -3,24 +3,29 @@ variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
   sensitive = true
-  default = "b1gtntehc8q3dldpb1ka"
 }
 
 variable "folder_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
   sensitive = true
-  default = "b1g65ggbv0fmdj4bp782"
 }
+
+
 
 variable "default_zone" {
   type        = string
   default     = "ru-central1-a"
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
-variable "default_cidr" {
+variable "public_cidr" {
   type        = list(string)
   default     = ["192.168.10.0/24"]
+  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+}
+variable "private_cidr" {
+  type        = list(string)
+  default     = ["192.168.20.0/24"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
 variable "vpc_name" {
@@ -43,6 +48,12 @@ variable "vm_nat_image_id" {
   type        = string
   description = "Using image"
   default     = "fd80mrhj8fl2oe87o4e1"
+}
+
+variable "vm_web_family" {
+  type        = string
+  description = "Using image"
+  default     = "ubuntu-2004-lts"
 }
 
 variable "vm_web_platform_id" {
@@ -68,7 +79,7 @@ variable "vm_metadata"{
   default = {
     metadata = {
     serial-port-enable = 1
-    ssh-keys = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICQcwD9uWc42cYFGApx4kNUVGyZaGvbipy02takxkXNI usem@MacBook-Pro-usem.local"
+    ssh-keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINauVL3ZATWD0cBj/Ky+ht+rTqAFf5X/9vyOExq9/Uj4 kirs-kirill@yandex.ru"
     }
   }
 
@@ -77,8 +88,12 @@ variable "vm_metadata"{
 
 ###ssh vars
 
-variable "vms_ssh_root_key" {
-  type        = string
-  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICQcwD9uWc42cYFGApx4kNUVGyZaGvbipy02takxkXNI usem@MacBook-Pro-usem.local"
+variable "ssh_public_key" {
+  type = string
   description = "ssh-keygen -t ed25519"
+}
+
+variable "ssh_user" {
+  type = string
+  default = "usem"
 }
