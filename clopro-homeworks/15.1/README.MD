@@ -29,6 +29,13 @@ Resource Terraform для Yandex Cloud:
 - [Route table](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_route_table).
 - [Compute Instance](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/compute_instance).
 
+
+#### Решение
+
+1. [main.tf](./terraform/main.tf)
+    Название сети `hw-15`, зона `ru-central1-a`.
+
+
 ---
 ### Задание 2. AWS* (задание со звёздочкой)
 
