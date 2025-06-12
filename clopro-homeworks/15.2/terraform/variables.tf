@@ -13,6 +13,12 @@ variable "folder_id" {
   default = "b1g65ggbv0fmdj4bp782"
 }
 
+variable "service_account_id" {
+  type = string
+  sensitive = true
+  default = "ajev6fmmk9cib5ve79vo"
+  description = ">yc iam service-account list -folder-id {folder_id}"
+}
 
 
 variable "default_zone" {
@@ -56,6 +62,12 @@ variable "vm_web_family" {
   type        = string
   description = "Using image"
   default     = "ubuntu-2004-lts"
+}
+
+variable "vm_lamp_family" {
+  type        = string
+  description = "Using image"
+  default     = "lamp"
 }
 
 variable "vm_web_platform_id" {
