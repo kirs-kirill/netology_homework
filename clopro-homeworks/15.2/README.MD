@@ -35,16 +35,28 @@
 
 1. ``` tf
     resource "yandex_storage_bucket" "hw_bucket" {
-      bucket = "kirsanov-hw-bucket"
-      folder_id = var.folder_id
-      max_size = 102400
+      bucket                = "kirsanov-hw-bucket"
+      folder_id             = var.folder_id
+      max_size              = 1024000
       default_storage_class = "COLD"
       anonymous_access_flags {
         read        = true
-        list        = false
-        config_read = false
+        list        = true
+        config_read = true
       }
     }
+    resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
+      service_account_id = var.service_account_id
+      description        = "static access key for object storage"
+    }
+    resource "yandex_storage_object" "test-object" {
+      access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
+      secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
+      bucket     = yandex_storage_bucket.hw_bucket.bucket
+      key        = "1.jpg"
+      source     = "./1.jpg"
+    }
+
     ```
 
     Ссылка на картинку: https://storage.yandexcloud.net/kirsanov-hw-bucket/1.jpg
