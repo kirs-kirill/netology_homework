@@ -1,0 +1,15 @@
+#cloud-config
+runcmd:
+write_files:
+  - path: /var/www/html/index.html
+    content: |
+      <html>
+      <body>
+        <h1>Welcome to LAMP</h1>
+        <img width="300" src="https://storage.yandexcloud.net/kirsanov-hw-bucket/1.jpg" alt="Image">
+      </body>
+      </html>
+    permissions: '0777'
+
+runcmd:
+  - service apache2 restart
