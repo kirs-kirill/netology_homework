@@ -64,7 +64,7 @@
         # yandex_storage_bucket.diplom_bucket will be created
         + resource "yandex_storage_bucket" "diplom_bucket" {
             + access_key            = (known after apply)
-            + bucket                = "kirsanov-diplom_bucket"
+            + bucket                = "kirsanov-diplom-bucket"
             + bucket_domain_name    = (known after apply)
             + default_storage_class = (known after apply)
             + folder_id             = (known after apply)
