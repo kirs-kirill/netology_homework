@@ -2,6 +2,7 @@
 
     <details>
     <summary>terraform plan</summary>
+    
       $ terraform plan
         
       Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
