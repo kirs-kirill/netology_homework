@@ -9,6 +9,6 @@ output "secret_key" {
 }
 
 output "dynamodb" {
-  value     = yandex_ydb_database_serverless.usem-ydb.document_api_endpoint
+  value     = yandex_ydb_database_serverless.diplom-ydb.document_api_endpoint
   sensitive = true
 }
