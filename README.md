@@ -52,3 +52,4 @@
 
 9. Диплом
     1. [Задание для допуска к дипломной работе](./diplom/pre/README.md)
+    2. [Диплом](./diplom/diplom/README.md)
