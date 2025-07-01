@@ -40,7 +40,8 @@ No modules.
 | <a name="input_cloud_id"></a> [cloud\_id](#input\_cloud\_id) | https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id | `string` | n/a | yes |
 | <a name="input_default_zone"></a> [default\_zone](#input\_default\_zone) | https://cloud.yandex.ru/docs/overview/concepts/geo-scope | `string` | `"ru-central1-a"` | no |
 | <a name="input_folder_id"></a> [folder\_id](#input\_folder\_id) | https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id | `string` | n/a | yes |
-| <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"ru-central1"` | no |
+| <a name="input_location"></a> [location](#input\_location) | https://github.com/yandex-cloud/terraform-provider-yandex/issues/524 | `string` | `"ru-central1"` | no |
+| <a name="input_token"></a> [token](#input\_token) | OAuth-token; https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token | `string` | n/a | yes |
 
 ## Outputs
 
