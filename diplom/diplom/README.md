@@ -2,13 +2,14 @@
 
     <details>
     <summary>terraform plan</summary>
-        $ terraform plan
     
+        $ terraform plan
+
         Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
           + create
-    
+
         Terraform will perform the following actions:
-    
+
           # aws_dynamodb_table.diplomTable will be created
           + resource "aws_dynamodb_table" "diplomTable" {
               + arn              = (known after apply)
@@ -23,13 +24,13 @@
               + stream_view_type = (known after apply)
               + tags_all         = (known after apply)
               + write_capacity   = (known after apply)
-    
+
               + attribute {
                   + name = "LockID"
                   + type = "S"
                 }
             }
-    
+
           # yandex_iam_service_account.sa will be created
           + resource "yandex_iam_service_account" "sa" {
               + created_at  = (known after apply)
@@ -38,7 +39,7 @@
               + id          = (known after apply)
               + name        = "test"
             }
-    
+
           # yandex_iam_service_account_static_access_key.sa-static-key will be created
           + resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
               + access_key                   = (known after apply)
@@ -51,7 +52,7 @@
               + secret_key                   = (sensitive value)
               + service_account_id           = (known after apply)
             }
-    
+
           # yandex_resourcemanager_folder_iam_member.sa-editor will be created
           + resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
               + folder_id = (sensitive value)
@@ -59,7 +60,7 @@
               + member    = (known after apply)
               + role      = "editor"
             }
-    
+
           # yandex_storage_bucket.test will be created
           + resource "yandex_storage_bucket" "test" {
               + access_key            = (known after apply)
@@ -73,7 +74,7 @@
               + website_domain        = (known after apply)
               + website_endpoint      = (known after apply)
             }
-    
+
           # yandex_ydb_database_serverless.usem-ydb will be created
           + resource "yandex_ydb_database_serverless" "usem-ydb" {
               + created_at            = (known after apply)
@@ -89,7 +90,7 @@
               + tls_enabled           = (known after apply)
               + ydb_api_endpoint      = (known after apply)
               + ydb_full_endpoint     = (known after apply)
-    
+
               + serverless_database {
                   + enable_throttling_rcu_limit = false
                   + provisioned_rcu_limit       = (known after apply)
@@ -97,15 +98,15 @@
                   + throttling_rcu_limit        = (known after apply)
                 }
             }
-    
+
         Plan: 6 to add, 0 to change, 0 to destroy.
-    
+
         Changes to Outputs:
           + access_key = (sensitive value)
           + dynamodb   = (sensitive value)
           + secret_key = (sensitive value)
-    
+
         ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────    ────    ──────────────────────────────────────────────────── 
-    
+
         Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
     </details>
