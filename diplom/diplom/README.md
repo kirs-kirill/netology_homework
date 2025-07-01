@@ -2,13 +2,13 @@
 
     <details>
     <summary>terraform plan</summary>
-    
-      $ terraform plan
+
+        $ terraform plan
         
-      Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+        Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
         + create
         
-      Terraform will perform the following actions:
+        Terraform will perform the following actions:
         
         # aws_dynamodb_table.diplomTable will be created
         + resource "aws_dynamodb_table" "diplomTable" {
