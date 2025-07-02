@@ -7,6 +7,7 @@
     terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY" -reconfigure
     ```
 4. [Создайте VPC с подсетями в разных зонах доступности.](./backend/vpc.tf)
+
       <detail>
           $ yc vpc network list
           +----------------------+----------------+
@@ -14,7 +15,7 @@
           +----------------------+----------------+
           | enpov1n3be2ep0cm93ke | diplom-network |
           +----------------------+----------------+
-  
+
           $ yc vpc subnet list
           +----------------------+----------+----------------------+----------------+---------------+-------------------+
           |          ID          |   NAME   |      NETWORK ID      | ROUTE TABLE ID |     ZONE      |       RANGE       |
