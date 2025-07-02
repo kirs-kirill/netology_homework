@@ -8,7 +8,7 @@
     ```
 4. [Создайте VPC с подсетями в разных зонах доступности.](./backend/vpc.tf)
 
-      <detail>
+      <details>
           $ yc vpc network list
           +----------------------+----------------+
           |          ID          |      NAME      |
@@ -24,4 +24,4 @@
           | e9br8gqgfr9hepkt2aep | subnet_a | enpov1n3be2ep0cm93ke |                | ru-central1-a | [192.168.10.0/24] |
           | fl8qi7ee7qgfi7e7duhg | subnet_d | enpov1n3be2ep0cm93ke |                | ru-central1-d | [192.168.30.0/24] |
           +----------------------+----------+----------------------+----------------+---------------+-------------------+
-      </detail>
+      </details>
