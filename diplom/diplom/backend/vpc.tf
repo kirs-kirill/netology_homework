@@ -4,9 +4,9 @@ resource "yandex_vpc_network" "diplom_network" {
 }
 
 resource "yandex_vpc_subnet" "subnet" {
-  for_each       = { for k, v in var.networks_zone : k => v }
-  v4_cidr_blocks = each.value.cidr
-  zone           = each.value.zone
+  for_each       = var.networks_zone
   name           = each.value.name
+  zone           = each.value.zone
+  v4_cidr_blocks = each.value.cidr
   network_id     = yandex_vpc_network.diplom_network.id
 }

@@ -2,12 +2,14 @@ variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
   sensitive   = true
+  default     = "b1gtntehc8q3dldpb1ka"
 }
 
 variable "folder_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
   sensitive   = true
+  default     = "b1g65ggbv0fmdj4bp782"
 }
 
 variable "default_zone" {
@@ -16,28 +18,32 @@ variable "default_zone" {
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
 
+
 variable "networks_zone" {
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope, https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-  type = list(object(
-    {
-      zone = string,
-      cidr = tuple([string]),
-      name = string
-    }
-  ))
-  default = [{
-    zone = "ru-central1-a"
-    cidr = ["192.168.10.0/24"]
-    name = "subnet_a"
-    },
-    {
-      zone = "ru-central1-b"
-      cidr = ["192.168.20.0/24"]
-      name = "subnet_b"
-    },
-    {
-      zone = "ru-central1-d"
-      cidr = ["192.168.30.0/24"]
-      name = "subnet_d"
-  }]
+  type = map(object({
+    name = string
+    zone = string
+    cidr = list(string)
+  }))
+}
+
+variable "family" {
+  type    = string
+  default = "ubuntu-2004-lts"
+}
+
+variable "vms" {
+  type = map(object({
+    zone          = string
+    name          = string
+    description   = string
+    cpu           = number
+    ram           = number
+    core_fraction = number
+    disk_volume   = number
+    platform_id   = string
+    subnet_key    = string
+    preemptible   = bool
+  }))
 }

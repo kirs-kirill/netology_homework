@@ -2,7 +2,7 @@
 
 1. [Создание сервисного аккаунта с правами записи, бакета и YDB](./sas3/)
       <details>
-      
+
         $  yc iam service-account list
         +----------------------+--------+--------+---------------------+-----------------------+
         |          ID          |  NAME  | LABELS |     CREATED AT      | LAST AUTHENTICATED AT |
@@ -54,3 +54,5 @@
 5. Убедитесь, что теперь вы можете выполнить команды terraform destroy и terraform apply без дополнительных ручных действий.
 
     `terraform destroy` и `terraform apply` нормально проходят с ключом `--auto-approve`.
+
+## Создание Kubernetes кластера
