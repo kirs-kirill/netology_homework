@@ -2,6 +2,7 @@
 
 1. [Создание сервисного аккаунта с правами записи, бакета и YDB](./sas3/)
       <details>
+      
         $  yc iam service-account list
         +----------------------+--------+--------+---------------------+-----------------------+
         |          ID          |  NAME  | LABELS |     CREATED AT      | LAST AUTHENTICATED AT |
